@@ -8,27 +8,26 @@ class MainScreen extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text("Battle Simulator")),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ElevatedButton(onPressed: () {}, child: Text("Kampf starten")),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text("Character bearbeiten"),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text("Monster bearbeiten"),
-                  ),
-                ],
-              ),
-            ],
-          ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ElevatedButton(onPressed: () {}, child: Text("Kampf starten")),
+            SizedBox(height: 100),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Character bearbeiten"),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text("Monster bearbeiten"),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
