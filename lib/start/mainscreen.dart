@@ -9,11 +9,11 @@ class MainScreen extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: Text("Battle Simulator")),
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             ElevatedButton(onPressed: () {}, child: Text("Kampf starten")),
-            SizedBox(height: 100),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
@@ -27,6 +27,8 @@ class MainScreen extends StatelessWidget {
                 ),
               ],
             ),
+            ElevatedButton(onPressed: () {}, child: Text("Zauber bearbeiten")),
+            SizedBox(height: 30),
           ],
         ),
       ),
