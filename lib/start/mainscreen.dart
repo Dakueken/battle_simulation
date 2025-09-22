@@ -14,13 +14,18 @@ class MainScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ElevatedButton(onPressed: () {}, child: Text("Kampf starten")),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text("Character bearbeiten"),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text("Monster bearbeiten"),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text("Character bearbeiten"),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text("Monster bearbeiten"),
+                  ),
+                ],
               ),
             ],
           ),
