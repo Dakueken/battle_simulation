@@ -1,8 +1,12 @@
+import 'package:battle_simulation/shared/theme.dart';
 import 'package:battle_simulation/start/mainscreen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
-  runApp(const MainApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft]);
+  runApp(MainApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -10,6 +14,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MainScreen();
+    return MaterialApp(home: MainScreen(), theme: AppTheme.lightTheme);
   }
 }
