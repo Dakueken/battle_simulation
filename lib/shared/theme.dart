@@ -23,5 +23,16 @@ class AppTheme {
       fillColor: const Color.fromARGB(152, 0, 0, 0),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
     ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: const Color.fromARGB(180, 47, 0, 117),
+        side: BorderSide(
+          color: const Color.fromARGB(180, 255, 193, 7),
+          width: 5,
+        ),
+        padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
+      ),
+    ),
   );
 }

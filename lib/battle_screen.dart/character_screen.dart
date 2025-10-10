@@ -1,8 +1,8 @@
+import 'package:battle_simulation/battle_screen.dart/b_s_textfield.dart';
 import 'package:flutter/material.dart';
 
 class CharacterScreen extends StatelessWidget {
-  CharacterScreen({super.key});
-  final List<String> entries = <String>["A", "B", "C"];
+  const CharacterScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class CharacterScreen extends StatelessWidget {
             fit: BoxFit.fill,
           ),
           Padding(
-            padding: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -47,34 +47,14 @@ class CharacterScreen extends StatelessWidget {
                                   ).textTheme.headlineMedium,
                                 ),
                               ),
-                              SizedBox(
-                                width: 80,
-                                child: TextField(
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.headlineMedium,
-                                  decoration: InputDecoration(),
-                                ),
-                              ),
+                              BSTextfield(),
                               Text(
                                 "/",
                                 style: Theme.of(
                                   context,
                                 ).textTheme.headlineMedium,
                               ),
-                              SizedBox(
-                                width: 80,
-                                child: TextField(
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.headlineMedium,
-                                  decoration: InputDecoration(),
-                                ),
-                              ),
+                              BSTextfield(),
                             ],
                           ),
                           Row(
@@ -88,44 +68,97 @@ class CharacterScreen extends StatelessWidget {
                                   ).textTheme.headlineMedium,
                                 ),
                               ),
+                              BSTextfield(),
+                            ],
+                          ),
+                          Row(
+                            children: [
                               SizedBox(
-                                width: 80,
-                                child: TextField(
-                                  textAlignVertical: TextAlignVertical.bottom,
-                                  textAlign: TextAlign.center,
+                                width: 200,
+                                child: Text(
+                                  "Magic Power",
                                   style: Theme.of(
                                     context,
                                   ).textTheme.headlineMedium,
-                                  decoration: InputDecoration(),
                                 ),
                               ),
+                              BSTextfield(),
                             ],
                           ),
-                          SizedBox(
-                            width: 200,
-                            child: Text(
-                              "Magic Power",
-                              style: Theme.of(context).textTheme.headlineMedium,
-                            ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 200,
+                                child: Text(
+                                  "Speed",
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.headlineMedium,
+                                ),
+                              ),
+                              BSTextfield(),
+                            ],
                           ),
-                          Text("Test"),
-                          Text("Test"),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 200,
+                                child: Text(
+                                  "Luck",
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.headlineMedium,
+                                ),
+                              ),
+                              BSTextfield(),
+                            ],
+                          ),
                         ],
                       ),
                     ),
-                    Expanded(
+                    /* Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Text(
-                            "Test",
+                            "",
                             style: Theme.of(context).textTheme.headlineMedium,
                           ),
                         ],
                       ),
-                    ),
+                    ), */
                   ],
+                ),
+              ],
+            ),
+          ),
+          Positioned(
+            bottom: 10,
+            left: 40,
+            child: Row(
+              spacing: 10,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Change Character",
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Abort Changes",
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
+                ),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: Text(
+                    "Save Changes",
+                    style: Theme.of(context).textTheme.headlineMedium,
+                  ),
                 ),
               ],
             ),
