@@ -25,6 +25,7 @@ class AppTheme {
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        minimumSize: Size(140, 40),
         backgroundColor: const Color.fromARGB(180, 47, 0, 117),
         side: BorderSide(
           color: const Color.fromARGB(180, 255, 193, 7),

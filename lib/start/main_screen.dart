@@ -12,15 +12,21 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Battle Simulator")),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        crossAxisAlignment: CrossAxisAlignment.center,
+      appBar: AppBar(
+        title: Text("Battle Simulator"),
+        backgroundColor: Colors.amber,
+      ),
+      body: Stack(
+        fit: StackFit.expand,
         children: [
-          ElevatedButton(onPressed: () {}, child: Text("Kampf starten")),
-
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
+          Image.asset(
+            "lib/assets/backgrounds/field_background.jpg",
+            fit: BoxFit.fitWidth,
+          ),
+          Column(
+            spacing: 20,
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               ElevatedButton(
                 onPressed: () {
@@ -28,16 +34,72 @@ class _MainScreenState extends State<MainScreen> {
                     MaterialPageRoute(builder: (context) => CharacterScreen()),
                   );
                 },
-                child: Text("Character bearbeiten"),
+                child: Text(
+                  "Start Battle",
+                  style: Theme.of(context).textTheme.headlineMedium,
+                ),
               ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Text("Monster bearbeiten"),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CharacterScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Edit Character",
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CharacterScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Edit Party",
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CharacterScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Edit Monster",
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => CharacterScreen(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      "Edit Spells",
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                  ),
+                ],
               ),
+              SizedBox(height: 20),
             ],
           ),
-          ElevatedButton(onPressed: () {}, child: Text("Zauber bearbeiten")),
-          SizedBox(height: 30),
         ],
       ),
     );
