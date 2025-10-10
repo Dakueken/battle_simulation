@@ -20,8 +20,29 @@ class _MainScreenState extends State<MainScreen> {
         fit: StackFit.expand,
         children: [
           Image.asset(
-            "lib/assets/backgrounds/field_background.jpg",
+            "lib/assets/backgrounds/arena_background.jpg",
             fit: BoxFit.fitWidth,
+          ),
+          Positioned(
+            right: 100,
+            child: SizedBox(
+              height: 400,
+              child: Image.asset(
+                "lib/assets/icon/splash.png",
+                fit: BoxFit.contain,
+              ),
+            ),
+          ),
+          Positioned(
+            left: 170,
+            bottom: 50,
+            child: SizedBox(
+              height: 200,
+              child: Image.asset(
+                "lib/assets/images/wizard.png",
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
           Column(
             spacing: 20,

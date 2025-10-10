@@ -22,7 +22,8 @@ flutter:
   assets:  
     - lib/assets/backgrounds/
     - lib/assets/fonts/
-    - lib/assets/backgrounds/field_background.jpg
+    - lib/assets/icon/
+    - lib/assets/images/
 
   fonts:
   - family: Berry

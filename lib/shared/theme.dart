@@ -18,7 +18,7 @@ class AppTheme {
     ),
     inputDecorationTheme: InputDecorationTheme(
       isDense: true,
-      contentPadding: EdgeInsets.fromLTRB(0, 8, 0, -2),
+      contentPadding: EdgeInsets.fromLTRB(0, 8, 0, 0),
       filled: true,
       fillColor: const Color.fromARGB(152, 0, 0, 0),
       border: OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
@@ -31,7 +31,7 @@ class AppTheme {
           color: const Color.fromARGB(180, 255, 193, 7),
           width: 5,
         ),
-        padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+        padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(0)),
       ),
     ),
