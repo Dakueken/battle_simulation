@@ -3,6 +3,14 @@ import 'package:flutter/material.dart';
 
 class CharacterScreen extends StatelessWidget {
   const CharacterScreen({super.key});
+  static List<String> spellList = [
+    "Fire",
+    "Ice",
+    "Bolt",
+    "Heal",
+    "Bolt2",
+    "Bolt3",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +26,7 @@ class CharacterScreen extends StatelessWidget {
             fit: BoxFit.fill,
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+            padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
@@ -27,16 +35,20 @@ class CharacterScreen extends StatelessWidget {
                   "Character A",
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
-                SizedBox(height: 20),
+                SizedBox(height: 5),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: Column(
-                        spacing: 12,
+                        spacing: 10,
+                        mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               SizedBox(
                                 width: 200,
@@ -116,49 +128,87 @@ class CharacterScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    /* Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            "",
-                            style: Theme.of(context).textTheme.headlineMedium,
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            spacing: 20,
+                            children: [
+                              Text(
+                                "Spell List",
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineMedium,
+                              ),
+                              ElevatedButton(
+                                onPressed: () {},
+                                child: Text(
+                                  "Edit Spelllist",
+                                  style: Theme.of(
+                                    context,
+                                  ).textTheme.headlineMedium,
+                                ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 170,
+                            width: 330,
+                            child: ListView.builder(
+                              shrinkWrap: true,
+                              padding: const EdgeInsets.all(10),
+                              itemCount: spellList.length,
+                              itemBuilder: (context, index) {
+                                return Row(
+                                  spacing: 10,
+                                  children: [
+                                    Icon(Icons.person),
+                                    Text(
+                                      spellList[index],
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.headlineMedium,
+                                    ),
+                                  ],
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),
-                    ), */
+                    ),
                   ],
                 ),
-              ],
-            ),
-          ),
-          Positioned(
-            bottom: 10,
-            left: 40,
-            child: Row(
-              spacing: 10,
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Change Character",
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Abort Changes",
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                ),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: Text(
-                    "Save Changes",
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
+
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  spacing: 10,
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Change Character",
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Abort Changes",
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Text(
+                        "Save Changes",
+                        style: Theme.of(context).textTheme.headlineMedium,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
