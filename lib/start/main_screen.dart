@@ -1,4 +1,4 @@
-import 'package:battle_simulation/characters/characters.dart';
+import 'package:battle_simulation/battle_screen.dart/character_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {

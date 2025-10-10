@@ -19,7 +19,18 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:  
+    - lib/assets/backgrounds/
+    - lib/assets/fonts/
+
+  fonts:
+  - family: Berry
+    fonts:
+      - asset: lib/assets/fonts/BerryRotunda.ttf
+
 
 flutter_native_splash:
   color: "#000000"
   image: lib/assets/icon/splash.png
+
+  
