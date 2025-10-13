@@ -15,6 +15,11 @@ class AppTheme {
         fontSize: 20,
         color: Colors.white,
       ),
+      headlineSmall: TextStyle(
+        fontFamily: "Berry",
+        fontSize: 14,
+        color: Colors.white,
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
       isDense: true,

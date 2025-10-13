@@ -24,6 +24,14 @@ flutter:
     - lib/assets/fonts/
     - lib/assets/icon/
     - lib/assets/images/
+    - lib/assets/characters/
+    - lib/assets/monster/green/idle/
+    - lib/assets/monster/orange/idle/
+    - lib/assets/monster/blue/idle/
+    - lib/assets/monster/blue/hit/
+    - lib/assets/monster/green/hit/
+    - lib/assets/monster/orange/hit/
+    
 
   fonts:
   - family: Berry
@@ -33,6 +41,6 @@ flutter:
 
 flutter_native_splash:
   color: "#000000"
-  image: lib/assets/icon/splash.png
+  image: lib/assets/icon/splash_screen.png
 
   

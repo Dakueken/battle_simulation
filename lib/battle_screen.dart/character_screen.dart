@@ -16,13 +16,14 @@ class CharacterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Character bearbeiten"),
+        title: Text("Character Editor"),
         backgroundColor: Colors.amber,
       ),
       body: Stack(
         children: [
+          //Hintergrundbild
           Image.asset(
-            "lib/assets/backgrounds/tavern_backgorund.jpg",
+            "lib/assets/backgrounds/tavern_background.jpg",
             fit: BoxFit.fill,
           ),
           Padding(
@@ -31,11 +32,13 @@ class CharacterScreen extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
+                //Character Name
                 Text(
                   "Character A",
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
                 SizedBox(height: 5),
+                //Stats
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -128,6 +131,7 @@ class CharacterScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+                    // Spell List
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -182,7 +186,7 @@ class CharacterScreen extends StatelessWidget {
                     ),
                   ],
                 ),
-
+                //Bottom Buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   spacing: 10,

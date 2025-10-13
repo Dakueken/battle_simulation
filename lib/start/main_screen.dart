@@ -28,7 +28,7 @@ class _MainScreenState extends State<MainScreen> {
             child: SizedBox(
               height: 400,
               child: Image.asset(
-                "lib/assets/icon/splash.png",
+                "lib/assets/monster/green/idle/frame-1.png",
                 fit: BoxFit.contain,
               ),
             ),
