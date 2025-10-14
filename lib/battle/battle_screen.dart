@@ -1,5 +1,52 @@
 import 'package:flutter/material.dart';
 
+class Spell {
+  final String name;
+
+  final int cooldown, delay;
+
+  Spell(this.name, this.cooldown, this.delay);
+}
+
+List<Spell> spells = [
+  Spell("Fire", 5, 5),
+  Spell("Ice", 5, 5),
+  Spell("Bolt", 5, 5),
+  Spell("Heal", 5, 5),
+];
+
+List<String> initiativeList = [
+  "lib/assets/characters/character_a.png",
+  "lib/assets/characters/character_b.png",
+  "lib/assets/monster/orange/idle/frame-1.png",
+  "lib/assets/characters/character_c.png",
+  "lib/assets/characters/character_d.png",
+  "lib/assets/monster/green/idle/frame-1.png",
+  "lib/assets/characters/character_a.png",
+  "lib/assets/characters/character_b.png",
+  "lib/assets/characters/character_d.png",
+  "lib/assets/monster/green/idle/frame-1.png",
+  "lib/assets/monster/orange/idle/frame-1.png",
+  "lib/assets/characters/character_c.png",
+  "lib/assets/characters/character_a.png",
+  "lib/assets/monster/green/idle/frame-1.png",
+];
+
+List<String> messages = [
+  "Character A dealt 20 dmg to Monster A",
+  "Character B dealt 30 dmg to Monster A",
+  "Monster A dealt 20 dmg to Character B",
+  "Character A dealt 20 dmg to Monster A",
+  "Character B dealt 30 dmg to Monster A",
+  "Monster A dealt 20 dmg to Character B",
+  "Character A dealt 20 dmg to Monster A",
+  "Character B dealt 30 dmg to Monster A",
+  "Monster A dealt 20 dmg to Character B",
+  "Character A dealt 20 dmg to Monster A",
+  "Character B dealt 30 dmg to Monster A",
+  "Monster A dealt 20 dmg to Character B",
+];
+
 class BattleScreen extends StatefulWidget {
   const BattleScreen({super.key});
 
@@ -10,37 +57,6 @@ class BattleScreen extends StatefulWidget {
 class _BattleScreenState extends State<BattleScreen> {
   @override
   Widget build(BuildContext context) {
-    List<String> initiativeList = [
-      "lib/assets/characters/character_a.png",
-      "lib/assets/characters/character_b.png",
-      "lib/assets/monster/orange/idle/frame-1.png",
-      "lib/assets/characters/character_c.png",
-      "lib/assets/characters/character_d.png",
-      "lib/assets/monster/green/idle/frame-1.png",
-      "lib/assets/characters/character_a.png",
-      "lib/assets/characters/character_b.png",
-      "lib/assets/characters/character_d.png",
-      "lib/assets/monster/green/idle/frame-1.png",
-      "lib/assets/monster/orange/idle/frame-1.png",
-      "lib/assets/characters/character_c.png",
-      "lib/assets/characters/character_a.png",
-      "lib/assets/monster/green/idle/frame-1.png",
-    ];
-    List<String> messages = [
-      "Character A dealt 20 dmg to Monster A",
-      "Character B dealt 30 dmg to Monster A",
-      "Monster A dealt 20 dmg to Character B",
-      "Character A dealt 20 dmg to Monster A",
-      "Character B dealt 30 dmg to Monster A",
-      "Monster A dealt 20 dmg to Character B",
-      "Character A dealt 20 dmg to Monster A",
-      "Character B dealt 30 dmg to Monster A",
-      "Monster A dealt 20 dmg to Character B",
-      "Character A dealt 20 dmg to Monster A",
-      "Character B dealt 30 dmg to Monster A",
-      "Monster A dealt 20 dmg to Character B",
-    ];
-
     return Scaffold(
       body: Stack(
         fit: StackFit.expand,
@@ -67,9 +83,10 @@ class _BattleScreenState extends State<BattleScreen> {
                         padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
                         height: 48,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(100, 0, 0, 0),
+                          color: Color.fromARGB(180, 47, 0, 117),
                           border: Border.all(
-                            color: const Color.fromARGB(150, 255, 255, 255),
+                            width: 1,
+                            color: Color.fromARGB(180, 255, 193, 7),
                           ),
                         ),
                         width: 72,
@@ -94,14 +111,6 @@ class _BattleScreenState extends State<BattleScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           SizedBox(
-                            height: 140,
-                            width: 200,
-                            child: Image.asset(
-                              "lib/assets/monster/orange/idle/frame-1.png",
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          SizedBox(
                             width: 100,
                             height: 20,
                             child: LinearProgressIndicator(
@@ -110,6 +119,14 @@ class _BattleScreenState extends State<BattleScreen> {
                               valueColor: AlwaysStoppedAnimation<Color>(
                                 Colors.green,
                               ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 140,
+                            width: 200,
+                            child: Image.asset(
+                              "lib/assets/monster/orange/idle/frame-1.png",
+                              fit: BoxFit.contain,
                             ),
                           ),
                         ],
@@ -123,14 +140,6 @@ class _BattleScreenState extends State<BattleScreen> {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           SizedBox(
-                            height: 140,
-                            width: 200,
-                            child: Image.asset(
-                              "lib/assets/monster/green/idle/frame-1.png",
-                              fit: BoxFit.contain,
-                            ),
-                          ),
-                          SizedBox(
                             width: 100,
                             height: 20,
                             child: LinearProgressIndicator(
@@ -139,6 +148,14 @@ class _BattleScreenState extends State<BattleScreen> {
                               valueColor: AlwaysStoppedAnimation<Color>(
                                 Colors.green,
                               ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 140,
+                            width: 200,
+                            child: Image.asset(
+                              "lib/assets/monster/green/idle/frame-1.png",
+                              fit: BoxFit.contain,
                             ),
                           ),
                         ],
@@ -156,71 +173,115 @@ class _BattleScreenState extends State<BattleScreen> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      spacing: 20,
+                      spacing: 10,
                       children: [
-                        Column(
-                          spacing: 10,
-                          children: [
-                            SizedBox(
-                              height: 48,
-                              child: Image.asset(
-                                "lib/assets/characters/character_a.png",
-                                fit: BoxFit.fill,
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(180, 47, 0, 117),
+                            border: Border.all(
+                              width: 5,
+                              color: Color.fromARGB(180, 255, 193, 7),
+                            ),
+                          ),
+                          child: Column(
+                            spacing: 10,
+                            children: [
+                              SizedBox(
+                                height: 48,
+                                child: Image.asset(
+                                  "lib/assets/characters/character_a.png",
+                                  fit: BoxFit.fill,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "2000/2000",
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            ),
-                          ],
+                              Text(
+                                "2000/2000",
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineSmall,
+                              ),
+                            ],
+                          ),
                         ),
-                        Column(
-                          spacing: 10,
-                          children: [
-                            SizedBox(
-                              height: 48,
-                              child: Image.asset(
-                                "lib/assets/characters/character_b.png",
-                                fit: BoxFit.fill,
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(180, 47, 0, 117),
+                            border: Border.all(
+                              width: 5,
+                              color: Color.fromARGB(180, 255, 193, 7),
+                            ),
+                          ),
+                          child: Column(
+                            spacing: 10,
+                            children: [
+                              SizedBox(
+                                height: 48,
+                                child: Image.asset(
+                                  "lib/assets/characters/character_b.png",
+                                  fit: BoxFit.fill,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "2000/2000",
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            ),
-                          ],
+                              Text(
+                                "2000/2000",
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineSmall,
+                              ),
+                            ],
+                          ),
                         ),
-                        Column(
-                          spacing: 10,
-                          children: [
-                            SizedBox(
-                              height: 48,
-                              child: Image.asset(
-                                "lib/assets/characters/character_c.png",
-                                fit: BoxFit.fill,
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(180, 47, 0, 117),
+                            border: Border.all(
+                              width: 5,
+                              color: Color.fromARGB(180, 255, 193, 7),
+                            ),
+                          ),
+                          child: Column(
+                            spacing: 10,
+                            children: [
+                              SizedBox(
+                                height: 48,
+                                child: Image.asset(
+                                  "lib/assets/characters/character_c.png",
+                                  fit: BoxFit.fill,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "2000/2000",
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            ),
-                          ],
+                              Text(
+                                "2000/2000",
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineSmall,
+                              ),
+                            ],
+                          ),
                         ),
-                        Column(
-                          spacing: 10,
-                          children: [
-                            SizedBox(
-                              height: 48,
-                              child: Image.asset(
-                                "lib/assets/characters/character_d.png",
-                                fit: BoxFit.fill,
+                        Container(
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(180, 47, 0, 117),
+                            border: Border.all(
+                              width: 5,
+                              color: Color.fromARGB(180, 255, 193, 7),
+                            ),
+                          ),
+                          child: Column(
+                            spacing: 10,
+                            children: [
+                              SizedBox(
+                                height: 48,
+                                child: Image.asset(
+                                  "lib/assets/characters/character_d.png",
+                                  fit: BoxFit.fill,
+                                ),
                               ),
-                            ),
-                            Text(
-                              "2000/2000",
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            ),
-                          ],
+                              Text(
+                                "2000/2000",
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineSmall,
+                              ),
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -230,27 +291,69 @@ class _BattleScreenState extends State<BattleScreen> {
             ),
           ),
           //right Log
-          /* SafeArea(
-            child: Align(
-              alignment: Alignment.topRight,
-
-              child: Expanded(
-                child: Container(
-                  color: Color.fromARGB(152, 0, 0, 0),
-                  width: 250,
-
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(0, 5, 30, 5),
-                    controller: ScrollController(),
-                    child: Text(
-                      messages.join('\n'),
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Container(
+              padding: EdgeInsets.all(10),
+              color: Color.fromARGB(152, 0, 0, 0),
+              width: 450,
+              height: 150,
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(0, 5, 30, 5),
+                controller: ScrollController(),
+                child: Text(
+                  messages.join('\n'),
+                  style: Theme.of(context).textTheme.headlineSmall,
                 ),
               ),
             ),
-          ), */
+          ),
+
+          //bottom Attack
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              color: Color.fromARGB(152, 0, 0, 0),
+              height: 100,
+              width: 500,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                separatorBuilder: (context, index) => VerticalDivider(),
+                itemCount: spells.length,
+                itemBuilder: (context, index) {
+                  return Container(
+                    padding: EdgeInsets.all(5),
+                    decoration: BoxDecoration(
+                      color: Color.fromARGB(180, 47, 0, 117),
+                      border: Border.all(
+                        width: 5,
+                        color: Color.fromARGB(180, 255, 193, 7),
+                      ),
+                    ),
+                    width: 170,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          spells[index].name,
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        Text(
+                          "CD: ${spells[index].cooldown}",
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                        Text(
+                          "Delay: ${spells[index].delay}",
+                          style: Theme.of(context).textTheme.headlineMedium,
+                        ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
         ],
       ),
     );
