@@ -1,4 +1,4 @@
-import 'package:battle_simulation/battle_screen.dart/b_s_textfield.dart';
+import 'package:battle_simulation/shared/b_s_textfield.dart';
 import 'package:flutter/material.dart';
 
 class CharacterScreen extends StatelessWidget {
@@ -20,6 +20,7 @@ class CharacterScreen extends StatelessWidget {
         backgroundColor: Colors.amber,
       ),
       body: Stack(
+        fit: StackFit.expand,
         children: [
           //Hintergrundbild
           Image.asset(
@@ -38,6 +39,7 @@ class CharacterScreen extends StatelessWidget {
                   style: Theme.of(context).textTheme.headlineLarge,
                 ),
                 SizedBox(height: 5),
+
                 //Stats
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -131,6 +133,7 @@ class CharacterScreen extends StatelessWidget {
                         ],
                       ),
                     ),
+
                     // Spell List
                     Expanded(
                       child: Column(
@@ -186,6 +189,7 @@ class CharacterScreen extends StatelessWidget {
                     ),
                   ],
                 ),
+
                 //Bottom Buttons
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,

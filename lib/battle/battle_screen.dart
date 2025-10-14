@@ -1,3 +1,4 @@
+import 'package:battle_simulation/start/main_screen.dart';
 import 'package:flutter/material.dart';
 
 class Spell {
@@ -287,71 +288,97 @@ class _BattleScreenState extends State<BattleScreen> {
                     ),
                   ),
                 ),
-              ],
-            ),
-          ),
-          //right Log
-          Align(
-            alignment: Alignment.topCenter,
-            child: Container(
-              padding: EdgeInsets.all(10),
-              color: Color.fromARGB(152, 0, 0, 0),
-              width: 450,
-              height: 150,
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(0, 5, 30, 5),
-                controller: ScrollController(),
-                child: Text(
-                  messages.join('\n'),
-                  style: Theme.of(context).textTheme.headlineSmall,
-                ),
-              ),
-            ),
-          ),
 
-          //bottom Attack
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-              color: Color.fromARGB(152, 0, 0, 0),
-              height: 100,
-              width: 500,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                separatorBuilder: (context, index) => VerticalDivider(),
-                itemCount: spells.length,
-                itemBuilder: (context, index) {
-                  return Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Color.fromARGB(180, 47, 0, 117),
-                      border: Border.all(
-                        width: 5,
-                        color: Color.fromARGB(180, 255, 193, 7),
+                //right Log
+                Align(
+                  alignment: Alignment.topCenter,
+                  child: Container(
+                    padding: EdgeInsets.all(10),
+                    color: Color.fromARGB(152, 0, 0, 0),
+                    width: 450,
+                    height: 150,
+                    child: SingleChildScrollView(
+                      padding: const EdgeInsets.fromLTRB(0, 5, 30, 5),
+                      controller: ScrollController(),
+                      child: Text(
+                        messages.join('\n'),
+                        style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ),
-                    width: 170,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          spells[index].name,
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                        Text(
-                          "CD: ${spells[index].cooldown}",
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                        Text(
-                          "Delay: ${spells[index].delay}",
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                      ],
+                  ),
+                ),
+
+                //bottom Attack
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    color: Color.fromARGB(152, 0, 0, 0),
+                    height: 100,
+                    width: 500,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      separatorBuilder: (context, index) => VerticalDivider(),
+                      itemCount: spells.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(180, 47, 0, 117),
+                            border: Border.all(
+                              width: 5,
+                              color: Color.fromARGB(180, 255, 193, 7),
+                            ),
+                          ),
+                          width: 170,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                spells[index].name,
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineMedium,
+                              ),
+                              Text(
+                                "CD: ${spells[index].cooldown}",
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineMedium,
+                              ),
+                              Text(
+                                "Delay: ${spells[index].delay}",
+                                style: Theme.of(
+                                  context,
+                                ).textTheme.headlineMedium,
+                              ),
+                            ],
+                          ),
+                        );
+                      },
                     ),
-                  );
-                },
-              ),
+                  ),
+                ),
+
+                //Back to MainScreen
+                Align(
+                  alignment: Alignment(-0.75, -1),
+                  child: SizedBox(
+                    width: 80,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.of(context).pushReplacement(
+                          MaterialPageRoute(builder: (context) => MainScreen()),
+                        );
+                      },
+                      child: Text(
+                        "Abort Battle",
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ],

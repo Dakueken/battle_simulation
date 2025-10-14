@@ -1,4 +1,6 @@
-import 'package:battle_simulation/battle_screen.dart/character_screen.dart';
+import 'package:battle_simulation/battle/battle_screen.dart';
+import 'package:battle_simulation/character/character_screen.dart';
+import 'package:battle_simulation/spell/spell_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -24,9 +26,9 @@ class _MainScreenState extends State<MainScreen> {
             fit: BoxFit.fitWidth,
           ),
           Positioned(
-            right: 100,
+            right: 150,
             child: SizedBox(
-              height: 400,
+              height: 300,
               child: Image.asset(
                 "lib/assets/monster/green/idle/frame-1.png",
                 fit: BoxFit.contain,
@@ -51,8 +53,8 @@ class _MainScreenState extends State<MainScreen> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => CharacterScreen()),
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(builder: (context) => BattleScreen()),
                   );
                 },
                 child: Text(
@@ -78,26 +80,14 @@ class _MainScreenState extends State<MainScreen> {
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => CharacterScreen(),
-                        ),
-                      );
-                    },
+                    onPressed: () {},
                     child: Text(
                       "Edit Party",
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
                   ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => CharacterScreen(),
-                        ),
-                      );
-                    },
+                    onPressed: () {},
                     child: Text(
                       "Edit Monster",
                       style: Theme.of(context).textTheme.headlineMedium,
@@ -106,9 +96,7 @@ class _MainScreenState extends State<MainScreen> {
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => CharacterScreen(),
-                        ),
+                        MaterialPageRoute(builder: (context) => SpellScreen()),
                       );
                     },
                     child: Text(
