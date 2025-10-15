@@ -3,14 +3,14 @@ import 'package:battle_simulation/character/character_screen.dart';
 import 'package:battle_simulation/spells/spell_screen.dart';
 import 'package:flutter/material.dart';
 
-class MainScreen extends StatefulWidget {
-  const MainScreen({super.key});
+class StartScreen extends StatefulWidget {
+  const StartScreen({super.key});
 
   @override
-  State<MainScreen> createState() => _MainScreenState();
+  State<StartScreen> createState() => _StartScreenState();
 }
 
-class _MainScreenState extends State<MainScreen> {
+class _StartScreenState extends State<StartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

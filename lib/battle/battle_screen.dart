@@ -1,7 +1,7 @@
 import 'package:battle_simulation/shared/mock_data/initiative_list.dart';
 import 'package:battle_simulation/shared/mock_data/messages.dart';
 import 'package:battle_simulation/shared/spell.dart';
-import 'package:battle_simulation/start/main_screen.dart';
+import 'package:battle_simulation/start/start_screen.dart';
 import 'package:flutter/material.dart';
 
 class BattleScreen extends StatefulWidget {
@@ -315,7 +315,7 @@ class _BattleScreenState extends State<BattleScreen> {
                   ),
                 ),
 
-                //Back to MainScreen
+                //Back to StartScreen
                 Align(
                   alignment: Alignment(-0.75, -1),
                   child: SizedBox(
@@ -323,7 +323,9 @@ class _BattleScreenState extends State<BattleScreen> {
                     child: ElevatedButton(
                       onPressed: () {
                         Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (context) => MainScreen()),
+                          MaterialPageRoute(
+                            builder: (context) => StartScreen(),
+                          ),
                         );
                       },
                       child: Text(

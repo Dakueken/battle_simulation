@@ -1,3 +1,4 @@
+import 'package:battle_simulation/character/character_selector.dart';
 import 'package:battle_simulation/shared/b_s_textfield.dart';
 import 'package:flutter/material.dart';
 
@@ -196,7 +197,16 @@ class CharacterScreen extends StatelessWidget {
                   spacing: 10,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        showModalBottomSheet<void>(
+                          backgroundColor: Color.fromARGB(0, 0, 0, 0),
+                          context: context,
+                          isScrollControlled: true,
+                          builder: (BuildContext context) {
+                            return CharacterSelect();
+                          },
+                        );
+                      },
                       child: Text(
                         "Change Character",
                         style: Theme.of(context).textTheme.headlineMedium,
