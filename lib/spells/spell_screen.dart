@@ -1,4 +1,5 @@
 import 'package:battle_simulation/shared/b_s_textfield.dart';
+import 'package:battle_simulation/spells/spell_select.dart';
 import 'package:flutter/material.dart';
 
 class SpellScreen extends StatefulWidget {
@@ -120,9 +121,18 @@ class _SpellScreenState extends State<SpellScreen> {
                     spacing: 10,
                     children: [
                       ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          showModalBottomSheet<void>(
+                            backgroundColor: Color.fromARGB(0, 0, 0, 0),
+                            context: context,
+                            isScrollControlled: true,
+                            builder: (BuildContext context) {
+                              return SpellSelect();
+                            },
+                          );
+                        },
                         child: Text(
-                          "Change Spell",
+                          "Select Spell",
                           style: Theme.of(context).textTheme.headlineMedium,
                         ),
                       ),

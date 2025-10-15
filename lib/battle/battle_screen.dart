@@ -1,52 +1,8 @@
+import 'package:battle_simulation/shared/mock_data/initiative_list.dart';
+import 'package:battle_simulation/shared/mock_data/messages.dart';
+import 'package:battle_simulation/shared/spell.dart';
 import 'package:battle_simulation/start/main_screen.dart';
 import 'package:flutter/material.dart';
-
-class Spell {
-  final String name;
-
-  final int cooldown, delay;
-
-  Spell(this.name, this.cooldown, this.delay);
-}
-
-List<Spell> spells = [
-  Spell("Fire", 5, 5),
-  Spell("Ice", 5, 5),
-  Spell("Bolt", 5, 5),
-  Spell("Heal", 5, 5),
-];
-
-List<String> initiativeList = [
-  "lib/assets/characters/character_a.png",
-  "lib/assets/characters/character_b.png",
-  "lib/assets/monster/orange/idle/frame-1.png",
-  "lib/assets/characters/character_c.png",
-  "lib/assets/characters/character_d.png",
-  "lib/assets/monster/green/idle/frame-1.png",
-  "lib/assets/characters/character_a.png",
-  "lib/assets/characters/character_b.png",
-  "lib/assets/characters/character_d.png",
-  "lib/assets/monster/green/idle/frame-1.png",
-  "lib/assets/monster/orange/idle/frame-1.png",
-  "lib/assets/characters/character_c.png",
-  "lib/assets/characters/character_a.png",
-  "lib/assets/monster/green/idle/frame-1.png",
-];
-
-List<String> messages = [
-  "Character A dealt 20 dmg to Monster A",
-  "Character B dealt 30 dmg to Monster A",
-  "Monster A dealt 20 dmg to Character B",
-  "Character A dealt 20 dmg to Monster A",
-  "Character B dealt 30 dmg to Monster A",
-  "Monster A dealt 20 dmg to Character B",
-  "Character A dealt 20 dmg to Monster A",
-  "Character B dealt 30 dmg to Monster A",
-  "Monster A dealt 20 dmg to Character B",
-  "Character A dealt 20 dmg to Monster A",
-  "Character B dealt 30 dmg to Monster A",
-  "Monster A dealt 20 dmg to Character B",
-];
 
 class BattleScreen extends StatefulWidget {
   const BattleScreen({super.key});
@@ -70,7 +26,6 @@ class _BattleScreenState extends State<BattleScreen> {
           SafeArea(
             bottom: false,
             top: false,
-
             child: Stack(
               children: [
                 // Initive List

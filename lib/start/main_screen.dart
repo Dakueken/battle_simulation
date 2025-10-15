@@ -1,6 +1,6 @@
 import 'package:battle_simulation/battle/battle_screen.dart';
 import 'package:battle_simulation/character/character_screen.dart';
-import 'package:battle_simulation/spell/spell_screen.dart';
+import 'package:battle_simulation/spells/spell_screen.dart';
 import 'package:flutter/material.dart';
 
 class MainScreen extends StatefulWidget {
@@ -14,21 +14,22 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      /* appBar: AppBar(
         title: Text("Battle Simulator"),
         backgroundColor: Colors.amber,
-      ),
+      ), */
       body: Stack(
         fit: StackFit.expand,
         children: [
           Image.asset(
             "lib/assets/backgrounds/arena_background.jpg",
-            fit: BoxFit.fitWidth,
+            fit: BoxFit.cover,
           ),
           Positioned(
             right: 150,
+            bottom: 75,
             child: SizedBox(
-              height: 300,
+              height: 250,
               child: Image.asset(
                 "lib/assets/monster/green/idle/frame-1.png",
                 fit: BoxFit.contain,
@@ -79,20 +80,14 @@ class _MainScreenState extends State<MainScreen> {
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
-                  ElevatedButton(
+
+                  /* ElevatedButton(
                     onPressed: () {},
                     child: Text(
                       "Edit Party",
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
-                  ),
-                  ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Edit Monster",
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                  ),
+                  ), */
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
@@ -101,6 +96,14 @@ class _MainScreenState extends State<MainScreen> {
                     },
                     child: Text(
                       "Edit Spells",
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                  ),
+
+                  ElevatedButton(
+                    onPressed: () {},
+                    child: Text(
+                      "Edit Monster",
                       style: Theme.of(context).textTheme.headlineMedium,
                     ),
                   ),
