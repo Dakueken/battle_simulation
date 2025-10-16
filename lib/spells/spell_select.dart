@@ -1,4 +1,4 @@
-import 'package:battle_simulation/shared/spell.dart';
+import 'package:battle_simulation/shared/mock_data/spell.dart';
 import 'package:flutter/material.dart';
 
 class SpellSelect extends StatefulWidget {
@@ -56,6 +56,7 @@ class _SpellSelectState extends State<SpellSelect> {
             ),
           ),
           SizedBox(height: 5),
+
           Expanded(
             child: ListView.separated(
               separatorBuilder: (context, index) => SizedBox(width: 5),
@@ -76,9 +77,14 @@ class _SpellSelectState extends State<SpellSelect> {
                             color: Color.fromARGB(180, 255, 193, 7),
                           ),
                         ),
-                        child: Text(
-                          spells[index].name,
-                          style: Theme.of(context).textTheme.headlineMedium,
+                        child: GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pop(index);
+                          },
+                          child: Text(
+                            spells[index].name,
+                            style: Theme.of(context).textTheme.headlineMedium,
+                          ),
                         ),
                       ),
                     ),

@@ -1,7 +1,4 @@
-import 'package:battle_simulation/battle/battle_screen.dart';
-import 'package:battle_simulation/character/character_screen.dart';
 import 'package:battle_simulation/shared/theme.dart';
-import 'package:battle_simulation/spells/spell_screen.dart';
 import 'package:battle_simulation/start/start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -10,7 +7,7 @@ void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.landscapeLeft,
-    DeviceOrientation.landscapeRight,
+    //    DeviceOrientation.landscapeRight,
   ]);
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 

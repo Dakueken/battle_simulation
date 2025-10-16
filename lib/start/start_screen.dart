@@ -15,9 +15,11 @@ class _StartScreenState extends State<StartScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       /* appBar: AppBar(
-        title: Text("Battle Simulator"),
-        backgroundColor: Colors.amber,
-      ), */
+        title: Text("Battle Simulator" ,
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        backgroundColor: Color.fromARGB(180, 255, 193, 7),),
+       */
       body: Stack(
         fit: StackFit.expand,
         children: [

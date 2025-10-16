@@ -1,6 +1,6 @@
 import 'package:battle_simulation/shared/mock_data/initiative_list.dart';
 import 'package:battle_simulation/shared/mock_data/messages.dart';
-import 'package:battle_simulation/shared/spell.dart';
+import 'package:battle_simulation/shared/mock_data/spell.dart';
 import 'package:battle_simulation/start/start_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -24,6 +24,7 @@ class _BattleScreenState extends State<BattleScreen> {
             fit: BoxFit.cover,
           ),
           SafeArea(
+            left: false,
             bottom: false,
             top: false,
             child: Stack(
@@ -296,7 +297,7 @@ class _BattleScreenState extends State<BattleScreen> {
                                 ).textTheme.headlineMedium,
                               ),
                               Text(
-                                "CD: ${spells[index].cooldown}",
+                                "CD: ${spells[index].cd}",
                                 style: Theme.of(
                                   context,
                                 ).textTheme.headlineMedium,

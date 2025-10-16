@@ -1,5 +1,4 @@
 import 'package:battle_simulation/shared/mock_data/characters.dart';
-import 'package:battle_simulation/shared/spell.dart';
 import 'package:flutter/material.dart';
 
 class CharacterSelect extends StatefulWidget {
@@ -10,7 +9,7 @@ class CharacterSelect extends StatefulWidget {
 }
 
 class _CharacterSelectState extends State<CharacterSelect> {
-  List<bool> checkboxValues = List.generate(characters.length, (_) => false);
+  List<bool> checkboxValues = List.generate(characters.length, (x) => false);
 
   @override
   Widget build(BuildContext context) {
@@ -89,11 +88,16 @@ class _CharacterSelectState extends State<CharacterSelect> {
                                 ),
                               ],
                             ),
-                            SizedBox(
-                              height: 64,
-                              child: Image.asset(
-                                characters[index].image,
-                                fit: BoxFit.contain,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.of(context).pop(index);
+                              },
+                              child: SizedBox(
+                                height: 64,
+                                child: Image.asset(
+                                  characters[index].image,
+                                  fit: BoxFit.contain,
+                                ),
                               ),
                             ),
                           ],
