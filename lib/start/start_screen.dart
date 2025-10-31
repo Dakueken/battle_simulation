@@ -1,5 +1,6 @@
 import 'package:battle_simulation/battle/battle_screen.dart';
 import 'package:battle_simulation/character/character_screen.dart';
+import 'package:battle_simulation/monster/monster_screen.dart';
 import 'package:battle_simulation/spells/spell_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -103,7 +104,13 @@ class _StartScreenState extends State<StartScreen> {
                   ),
 
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => MonsterScreen(),
+                        ),
+                      );
+                    },
                     child: Text(
                       "Edit Monster",
                       style: Theme.of(context).textTheme.headlineMedium,

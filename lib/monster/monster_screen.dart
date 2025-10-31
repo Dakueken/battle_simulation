@@ -1,19 +1,21 @@
 import 'package:battle_simulation/character/bottom_buttons.dart';
 import 'package:battle_simulation/character/character_select.dart';
+import 'package:battle_simulation/monster/monster_select.dart';
 import 'package:battle_simulation/shared/b_s_textformfield.dart';
-import 'package:battle_simulation/shared/mock_data/characters.dart';
+import 'package:battle_simulation/shared/mock_data/monsters.dart';
+import 'package:battle_simulation/shared/mock_data/monsters.dart';
 import 'package:battle_simulation/shared/mock_data/spell.dart';
 import 'package:flutter/material.dart';
 
-class CharacterScreen extends StatefulWidget {
-  const CharacterScreen({super.key});
+class MonsterScreen extends StatefulWidget {
+  const MonsterScreen({super.key});
 
   @override
-  State<CharacterScreen> createState() => _CharacterScreenState();
+  State<MonsterScreen> createState() => _MonsterScreenState();
 }
 
-class _CharacterScreenState extends State<CharacterScreen> {
-  int selectedChar = 0;
+class _MonsterScreenState extends State<MonsterScreen> {
+  int selectedMonster = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +23,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: Text(
-          "Character Editor",
+          "Monster Editor",
           style: Theme.of(context).textTheme.headlineMedium,
         ),
         backgroundColor: Color.fromARGB(180, 255, 193, 7),
@@ -31,32 +33,38 @@ class _CharacterScreenState extends State<CharacterScreen> {
         children: [
           //Hintergrundbild
           Image.asset(
-            "lib/assets/backgrounds/tavern_background.jpg",
+            "lib/assets/backgrounds/dungeon_background.jpg",
             fit: BoxFit.fill,
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
             child: Form(
-              key: ValueKey('form_$selectedChar'),
+              key: ValueKey('form_$selectedMonster'),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  //Character Name
+                  //Monster Name
                   Text(
-                    characters[selectedChar].name,
+                    monsters[selectedMonster].name,
                     style: Theme.of(context).textTheme.headlineLarge,
                   ),
                   SizedBox(height: 5),
 
                   //Stats
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Expanded(
                         child: Column(
                           spacing: 10,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 SizedBox(
                                   width: 200,
@@ -68,18 +76,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
                                   ),
                                 ),
                                 BSTextFormField(
-                                  initialText: characters[selectedChar]
-                                      .currentHP
-                                      .toString(),
-                                ),
-                                Text(
-                                  "/",
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.headlineMedium,
-                                ),
-                                BSTextFormField(
-                                  initialText: characters[selectedChar].maxHP
+                                  initialText: monsters[selectedMonster].maxHP
                                       .toString(),
                                 ),
                               ],
@@ -96,7 +93,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
                                   ),
                                 ),
                                 BSTextFormField(
-                                  initialText: characters[selectedChar].armor
+                                  initialText: monsters[selectedMonster].armor
                                       .toString(),
                                 ),
                               ],
@@ -113,7 +110,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
                                   ),
                                 ),
                                 BSTextFormField(
-                                  initialText: characters[selectedChar].mp
+                                  initialText: monsters[selectedMonster].mp
                                       .toString(),
                                 ),
                               ],
@@ -130,7 +127,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
                                   ),
                                 ),
                                 BSTextFormField(
-                                  initialText: characters[selectedChar].speed
+                                  initialText: monsters[selectedMonster].speed
                                       .toString(),
                                 ),
                               ],
@@ -147,7 +144,7 @@ class _CharacterScreenState extends State<CharacterScreen> {
                                   ),
                                 ),
                                 BSTextFormField(
-                                  initialText: characters[selectedChar].luck
+                                  initialText: monsters[selectedMonster].luck
                                       .toString(),
                                 ),
                               ],
@@ -159,8 +156,11 @@ class _CharacterScreenState extends State<CharacterScreen> {
                       // Spell List
                       Expanded(
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
                               spacing: 20,
                               children: [
                                 Text(
@@ -211,11 +211,11 @@ class _CharacterScreenState extends State<CharacterScreen> {
 
                   /// BOTTOM BUTTONS
                   BottomButtons(
-                    monster: false,
-                    selectedChar: selectedChar,
+                    monster: true,
+                    selectedChar: selectedMonster,
                     onCharacterChange: (index) {
                       setState(() {
-                        selectedChar = index;
+                        selectedMonster = index;
                       });
                     },
                   ),
