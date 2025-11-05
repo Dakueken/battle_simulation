@@ -1,6 +1,6 @@
 class Spell {
   final String name, element;
-  final int cd, delay, dmg;
+  final double cd, delay, dmg;
   Spell({
     required this.name,
     required this.dmg,

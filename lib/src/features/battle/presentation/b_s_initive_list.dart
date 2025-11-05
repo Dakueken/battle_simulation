@@ -1,4 +1,7 @@
-import 'package:battle_simulation/src/features/battle/domain/initiative_list.dart';
+import 'package:battle_simulation/src/data/mock_data/characters.dart';
+import 'package:battle_simulation/src/data/mock_data/monsters.dart';
+import 'package:battle_simulation/src/data/mock_data/spell.dart';
+import 'package:battle_simulation/src/features/battle/domain/initative_builder.dart';
 import 'package:flutter/material.dart';
 
 class BSInitiativeList extends StatelessWidget {
@@ -6,9 +9,11 @@ class BSInitiativeList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final turnOrder = getTurnOrder(characters, monsters, spells);
+
     return ListView.builder(
       shrinkWrap: false,
-      itemCount: initiativeList.length,
+      itemCount: turnOrder.length,
       itemBuilder: (context, index) {
         return Align(
           alignment: Alignment.topLeft,
@@ -24,7 +29,7 @@ class BSInitiativeList extends StatelessWidget {
             ),
             width: 72,
             child: Image.asset(
-              initiativeList[index],
+              turnOrder[index].image,
               alignment: Alignment.center,
               fit: BoxFit.fitHeight,
             ),
