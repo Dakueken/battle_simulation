@@ -1,4 +1,4 @@
-import 'package:battle_simulation/src/common/b_s_bottom_buttons.dart';
+import 'package:battle_simulation/src/common/b_s_save_abort.dart';
 import 'package:battle_simulation/src/common/b_s_textformfield.dart';
 import 'package:battle_simulation/src/data/mock_data/characters.dart';
 import 'package:battle_simulation/src/data/mock_data/spell.dart';
@@ -208,7 +208,6 @@ class _CharacterScreenState extends State<CharacterScreen> {
                     ],
                   ),
 
-                  /// BOTTOM BUTTONS
                   BSSaveAbort(
                     monster: false,
                     selectedChar: selectedChar,

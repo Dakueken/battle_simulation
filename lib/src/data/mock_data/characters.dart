@@ -1,6 +1,7 @@
 class Character {
   final int maxHP, currentHP, armor, mp, speed, luck;
   final String name, image;
+  final bool inBattle;
 
   Character({
     required this.name,
@@ -11,6 +12,7 @@ class Character {
     required this.luck,
     required this.speed,
     required this.image,
+    required this.inBattle,
   });
 }
 
@@ -24,6 +26,7 @@ List<Character> characters = [
     mp: 3,
     speed: 4,
     image: "lib/assets/characters/character_a.png",
+    inBattle: true,
   ),
   Character(
     name: "Character B",
@@ -34,6 +37,7 @@ List<Character> characters = [
     mp: 7,
     speed: 8,
     image: "lib/assets/characters/character_b.png",
+    inBattle: true,
   ),
   Character(
     name: "Character C",
@@ -44,6 +48,7 @@ List<Character> characters = [
     mp: 2,
     speed: 3,
     image: "lib/assets/characters/character_c.png",
+    inBattle: true,
   ),
   Character(
     name: "Character D",
@@ -54,5 +59,6 @@ List<Character> characters = [
     mp: 6,
     speed: 7,
     image: "lib/assets/characters/character_d.png",
+    inBattle: true,
   ),
 ];

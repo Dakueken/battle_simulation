@@ -1,0 +1,16 @@
+List<String> initiativeList = [
+  "lib/assets/characters/character_a.png",
+  "lib/assets/characters/character_b.png",
+  "lib/assets/monster/orange/idle/frame-1.png",
+  "lib/assets/characters/character_c.png",
+  "lib/assets/characters/character_d.png",
+  "lib/assets/monster/green/idle/frame-1.png",
+  "lib/assets/characters/character_a.png",
+  "lib/assets/characters/character_b.png",
+  "lib/assets/characters/character_d.png",
+  "lib/assets/monster/green/idle/frame-1.png",
+  "lib/assets/monster/orange/idle/frame-1.png",
+  "lib/assets/characters/character_c.png",
+  "lib/assets/characters/character_a.png",
+  "lib/assets/monster/green/idle/frame-1.png",
+];
