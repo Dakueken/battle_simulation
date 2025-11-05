@@ -21,6 +21,7 @@ class AppTheme {
         color: Colors.white,
       ),
     ),
+
     inputDecorationTheme: InputDecorationTheme(
       isDense: true,
       contentPadding: EdgeInsets.fromLTRB(0, 8, 0, 0),

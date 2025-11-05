@@ -1,6 +1,7 @@
 class Monster {
   final int maxHP, armor, mp, speed, luck;
   final String name, image;
+  final bool inBattle;
 
   Monster({
     required this.name,
@@ -10,6 +11,7 @@ class Monster {
     required this.luck,
     required this.speed,
     required this.image,
+    required this.inBattle,
   });
 }
 
@@ -22,6 +24,7 @@ List<Monster> monsters = [
     mp: 3,
     speed: 4,
     image: "lib/assets/monster/blue/idle/frame-1.png",
+    inBattle: true,
   ),
   Monster(
     name: "Monster B",
@@ -31,6 +34,7 @@ List<Monster> monsters = [
     mp: 7,
     speed: 8,
     image: "lib/assets/monster/green/idle/frame-1.png",
+    inBattle: true,
   ),
   Monster(
     name: "Monster C",
@@ -40,5 +44,6 @@ List<Monster> monsters = [
     mp: 2,
     speed: 3,
     image: "lib/assets/monster/orange/idle/frame-1.png",
+    inBattle: false,
   ),
 ];
