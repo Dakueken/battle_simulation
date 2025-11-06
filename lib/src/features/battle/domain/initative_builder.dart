@@ -1,6 +1,8 @@
-import 'package:battle_simulation/src/data/mock_data/characters.dart';
-import 'package:battle_simulation/src/data/mock_data/monsters.dart';
-import 'package:battle_simulation/src/data/mock_data/spell.dart';
+import 'package:battle_simulation/src/common/models/character.dart';
+import 'package:battle_simulation/src/common/data/mock_data/characters.dart';
+import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
+import 'package:battle_simulation/src/common/models/monster.dart';
+import 'package:battle_simulation/src/common/models/spell.dart';
 
 List<dynamic> getTurnOrder(
   List<Character> allCharacters,

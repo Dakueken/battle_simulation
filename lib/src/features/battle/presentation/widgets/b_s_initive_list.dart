@@ -1,6 +1,6 @@
-import 'package:battle_simulation/src/data/mock_data/characters.dart';
-import 'package:battle_simulation/src/data/mock_data/monsters.dart';
-import 'package:battle_simulation/src/data/mock_data/spell.dart';
+import 'package:battle_simulation/src/common/data/mock_data/characters.dart';
+import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
+import 'package:battle_simulation/src/common/data/mock_data/spell.dart';
 import 'package:battle_simulation/src/features/battle/domain/initative_builder.dart';
 import 'package:flutter/material.dart';
 

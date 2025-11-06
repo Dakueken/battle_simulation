@@ -1,9 +1,9 @@
-import 'package:battle_simulation/src/features/battle/presentation/b_s_back_to_start.dart';
-import 'package:battle_simulation/src/features/battle/presentation/b_s_battle_attack.dart';
-import 'package:battle_simulation/src/features/battle/presentation/b_s_battle_character.dart';
-import 'package:battle_simulation/src/features/battle/presentation/b_s_battle_log.dart';
-import 'package:battle_simulation/src/features/battle/presentation/b_s_battle_monster.dart';
-import 'package:battle_simulation/src/features/battle/presentation/b_s_initive_list.dart';
+import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_back_to_start.dart';
+import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_battle_attack.dart';
+import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_battle_character.dart';
+import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_battle_log.dart';
+import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_battle_monster.dart';
+import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_initive_list.dart';
 import 'package:flutter/material.dart';
 
 class BattleScreen extends StatefulWidget {

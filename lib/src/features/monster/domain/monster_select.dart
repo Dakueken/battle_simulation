@@ -1,4 +1,4 @@
-import 'package:battle_simulation/src/data/mock_data/monsters.dart';
+import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
 import 'package:flutter/material.dart';
 
 class MonsterSelect extends StatefulWidget {
