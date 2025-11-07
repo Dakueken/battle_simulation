@@ -8,7 +8,7 @@ List<Character> characters = [
     armor: 1,
     luck: 2,
     mp: 3,
-    speed: 60,
+    speed: 200,
     image: "lib/assets/characters/character_a.png",
     inBattle: true,
     haste: 1,

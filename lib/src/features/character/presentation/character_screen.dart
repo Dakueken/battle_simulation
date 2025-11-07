@@ -1,5 +1,5 @@
-import 'package:battle_simulation/src/common/wIdgets/b_s_save_abort.dart';
-import 'package:battle_simulation/src/common/wIdgets/b_s_textformfield.dart';
+import 'package:battle_simulation/src/common/widgets/b_s_save_abort.dart';
+import 'package:battle_simulation/src/common/widgets/b_s_textformfield.dart';
 import 'package:battle_simulation/src/common/data/mock_data/characters.dart';
 import 'package:battle_simulation/src/common/data/mock_data/spell.dart';
 import 'package:flutter/material.dart';

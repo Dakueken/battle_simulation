@@ -1,4 +1,4 @@
-import 'package:battle_simulation/src/common/wIdgets/b_s_textformfield.dart';
+import 'package:battle_simulation/src/common/widgets/b_s_textformfield.dart';
 import 'package:battle_simulation/src/common/data/mock_data/spell.dart';
 import 'package:battle_simulation/src/features/spells/domain/spell_select.dart';
 import 'package:flutter/material.dart';

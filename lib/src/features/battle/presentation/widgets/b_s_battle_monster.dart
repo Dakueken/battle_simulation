@@ -27,7 +27,7 @@ class BSBattleMonster extends StatelessWidget {
                 height: 140,
                 width: 200,
                 child: Image.asset(
-                  "lib/assets/monster/orange/idle/frame-1.png",
+                  "lib/assets/monster/blue/idle/frame-1.png",
                   fit: BoxFit.contain,
                 ),
               ),
