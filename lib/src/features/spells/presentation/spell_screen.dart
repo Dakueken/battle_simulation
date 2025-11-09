@@ -1,3 +1,4 @@
+import 'package:battle_simulation/src/common/widgets/b_s_back_button.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_textformfield.dart';
 import 'package:battle_simulation/src/common/data/mock_data/spell.dart';
 import 'package:battle_simulation/src/features/spells/domain/spell_select.dart';
@@ -20,13 +21,7 @@ class _SpellScreenState extends State<SpellScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(
-          "Spell Editor",
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-        backgroundColor: Color.fromARGB(180, 255, 193, 7),
-      ),
+
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -44,12 +39,18 @@ class _SpellScreenState extends State<SpellScreen> {
               child: Column(
                 spacing: 10,
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   //Spell Name
-                  Text(
-                    spells[selectedSpell].name,
-                    style: Theme.of(context).textTheme.headlineLarge,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        spells[selectedSpell].name,
+                        style: Theme.of(context).textTheme.headlineLarge,
+                      ),
+                      BSBackButton(),
+                    ],
                   ),
                   SizedBox(height: 5),
 

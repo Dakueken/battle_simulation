@@ -1,7 +1,8 @@
+import 'package:battle_simulation/src/common/widgets/b_s_back_button.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_save_abort.dart';
-import 'package:battle_simulation/src/common/widgets/b_s_textformfield.dart';
+import 'package:battle_simulation/src/common/widgets/b_s_spell_list.dart';
 import 'package:battle_simulation/src/common/data/mock_data/characters.dart';
-import 'package:battle_simulation/src/common/data/mock_data/spell.dart';
+import 'package:battle_simulation/src/common/widgets/b_s_stats_column.dart';
 import 'package:flutter/material.dart';
 
 class CharacterScreen extends StatefulWidget {
@@ -13,18 +14,13 @@ class CharacterScreen extends StatefulWidget {
 
 class _CharacterScreenState extends State<CharacterScreen> {
   int selectedChar = 0;
+  bool isChar = true;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
-        title: Text(
-          "Character Editor",
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-        backgroundColor: Color.fromARGB(180, 255, 193, 7),
-      ),
+
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -34,177 +30,33 @@ class _CharacterScreenState extends State<CharacterScreen> {
             fit: BoxFit.fill,
           ),
           Padding(
-            padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
             child: Form(
               key: ValueKey('form_$selectedChar'),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   //Character Name
-                  Text(
-                    characters[selectedChar].name,
-                    style: Theme.of(context).textTheme.headlineLarge,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        characters[selectedChar].name,
+                        style: Theme.of(context).textTheme.headlineLarge,
+                      ),
+                      BSBackButton(),
+                    ],
                   ),
                   SizedBox(height: 5),
 
                   //Stats
                   Row(
                     children: [
-                      Expanded(
-                        child: Column(
-                          spacing: 10,
-                          children: [
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 200,
-                                  child: Text(
-                                    "HP: ",
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.headlineMedium,
-                                  ),
-                                ),
-                                BSTextFormField(
-                                  initialText: characters[selectedChar]
-                                      .currentHP
-                                      .toString(),
-                                ),
-                                Text(
-                                  "/",
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.headlineMedium,
-                                ),
-                                BSTextFormField(
-                                  initialText: characters[selectedChar].maxHP
-                                      .toString(),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 200,
-                                  child: Text(
-                                    "Armor",
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.headlineMedium,
-                                  ),
-                                ),
-                                BSTextFormField(
-                                  initialText: characters[selectedChar].armor
-                                      .toString(),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 200,
-                                  child: Text(
-                                    "Magic Power",
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.headlineMedium,
-                                  ),
-                                ),
-                                BSTextFormField(
-                                  initialText: characters[selectedChar].mp
-                                      .toString(),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 200,
-                                  child: Text(
-                                    "Speed",
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.headlineMedium,
-                                  ),
-                                ),
-                                BSTextFormField(
-                                  initialText: characters[selectedChar].speed
-                                      .toString(),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              children: [
-                                SizedBox(
-                                  width: 200,
-                                  child: Text(
-                                    "Luck",
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.headlineMedium,
-                                  ),
-                                ),
-                                BSTextFormField(
-                                  initialText: characters[selectedChar].luck
-                                      .toString(),
-                                ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
+                      BSStatsColumn(selectedChar: selectedChar, isChar: isChar),
 
                       // Spell List
-                      Expanded(
-                        child: Column(
-                          children: [
-                            Row(
-                              spacing: 20,
-                              children: [
-                                Text(
-                                  "Spell List",
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.headlineMedium,
-                                ),
-                                ElevatedButton(
-                                  onPressed: () {},
-                                  child: Text(
-                                    "Edit Spelllist",
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.headlineMedium,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: 170,
-                              width: 330,
-                              child: ListView.builder(
-                                shrinkWrap: true,
-                                padding: const EdgeInsets.all(10),
-                                itemCount: spells.length,
-                                itemBuilder: (context, index) {
-                                  return Row(
-                                    spacing: 10,
-                                    children: [
-                                      Icon(Icons.person),
-                                      Text(
-                                        spells[index].name,
-                                        style: Theme.of(
-                                          context,
-                                        ).textTheme.headlineMedium,
-                                      ),
-                                    ],
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      BSSpellList(),
                     ],
                   ),
 
