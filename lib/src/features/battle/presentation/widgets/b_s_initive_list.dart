@@ -5,19 +5,19 @@ import 'package:battle_simulation/src/features/battle/domain/initative_builder.d
 import 'package:flutter/material.dart';
 
 class BSInitiativeList extends StatelessWidget {
-  const BSInitiativeList({super.key});
+  final List<dynamic> turnOrder;
+
+  const BSInitiativeList({super.key, required this.turnOrder});
 
   @override
   Widget build(BuildContext context) {
-    final turnOrder = getTurnOrder(characters, monsters, spells);
-
     return Container(
       color: Color.fromARGB(100, 0, 0, 0),
       width: 72,
       child: ListView.builder(
-        shrinkWrap: false,
         itemCount: turnOrder.length,
         itemBuilder: (context, index) {
+          final characterOrMonster = turnOrder[index];
           return Align(
             alignment: Alignment.topLeft,
             child: Container(
@@ -32,7 +32,7 @@ class BSInitiativeList extends StatelessWidget {
               ),
               width: 72,
               child: Image.asset(
-                turnOrder[index].image,
+                characterOrMonster.image,
                 alignment: Alignment.center,
                 fit: BoxFit.fitHeight,
               ),

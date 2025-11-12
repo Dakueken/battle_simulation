@@ -1,11 +1,20 @@
 import 'package:battle_simulation/src/common/data/mock_data/spell.dart';
+import 'package:battle_simulation/src/common/models/character.dart';
+import 'package:battle_simulation/src/common/models/monster.dart';
 import 'package:flutter/material.dart';
 
 class BSBattleAttack extends StatelessWidget {
-  const BSBattleAttack({super.key});
+  final dynamic selectedCharacter;
+
+  const BSBattleAttack({super.key, required this.selectedCharacter});
 
   @override
   Widget build(BuildContext context) {
+    final isMonster = selectedCharacter is Monster;
+    final spellsToShow = selectedCharacter is Character
+        ? selectedCharacter.characterSpells
+        : [];
+
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
@@ -15,8 +24,9 @@ class BSBattleAttack extends StatelessWidget {
         child: ListView.separated(
           scrollDirection: Axis.horizontal,
           separatorBuilder: (context, index) => VerticalDivider(),
-          itemCount: spells.length,
+          itemCount: spellsToShow.length,
           itemBuilder: (context, index) {
+            final spell = spellsToShow[index];
             return Container(
               padding: EdgeInsets.all(5),
               decoration: BoxDecoration(
@@ -27,23 +37,26 @@ class BSBattleAttack extends StatelessWidget {
                 ),
               ),
               width: 170,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                    spells[index].name,
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  Text(
-                    "CD: ${spells[index].cd}",
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                  Text(
-                    "Delay: ${spells[index].delay}",
-                    style: Theme.of(context).textTheme.headlineMedium,
-                  ),
-                ],
+              child: GestureDetector(
+                onTap: () {},
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      spell.name,
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    Text(
+                      "CD: ${spell.cd}",
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                    Text(
+                      "Delay: ${spell.delay}",
+                      style: Theme.of(context).textTheme.headlineMedium,
+                    ),
+                  ],
+                ),
               ),
             );
           },
