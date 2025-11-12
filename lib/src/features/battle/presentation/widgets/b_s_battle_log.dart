@@ -27,7 +27,6 @@ class _BSBattleLogState extends State<BSBattleLog> {
 
   @override
   Widget build(BuildContext context) {
-    // Ensure we scroll when the widget first builds
     WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
 
     return Align(
