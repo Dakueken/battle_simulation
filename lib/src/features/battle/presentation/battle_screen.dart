@@ -1,10 +1,9 @@
-import 'package:battle_simulation/src/common/models/character.dart';
 import 'package:battle_simulation/src/common/models/monster.dart';
-import 'package:battle_simulation/src/common/models/spell.dart';
 import 'package:battle_simulation/src/common/data/mock_data/characters.dart';
 import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
 import 'package:battle_simulation/src/common/data/mock_data/spell.dart';
 import 'package:battle_simulation/src/common/data/mock_data/messages.dart';
+import 'package:battle_simulation/src/features/battle/domain/b_s_turn_manager.dart';
 import 'package:battle_simulation/src/features/battle/domain/initative_builder.dart';
 import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_back_to_start.dart';
 import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_battle_attack.dart';
@@ -22,49 +21,79 @@ class BattleScreen extends StatefulWidget {
 }
 
 class _BattleScreenState extends State<BattleScreen> {
-  late List<dynamic> turnOrder;
+  late BSTurnManager turnManager;
 
   @override
   void initState() {
     super.initState();
-    turnOrder = getTurnOrder(characters, monsters, spells);
+    final initialTurnOrder = getTurnOrder(characters, monsters, spells);
+    turnManager = BSTurnManager(
+      turnOrder: initialTurnOrder,
+      onLog: (text) {
+        messages.add(text);
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    final selectedCharacter = turnOrder.isNotEmpty ? turnOrder.first : null;
+    return AnimatedBuilder(
+      animation: turnManager,
+      builder: (context, _) {
+        final selectedCharacter = turnManager.current;
 
-    return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          //Background
-          Image.asset(
-            "lib/assets/backgrounds/arena_background.jpg",
-            fit: BoxFit.cover,
+        if (selectedCharacter is Monster) {
+          turnManager.handleMonsterTurn();
+        }
+
+        return Scaffold(
+          body: Stack(
+            fit: StackFit.expand,
+            children: [
+              // Background
+              Image.asset(
+                "lib/assets/backgrounds/arena_background.jpg",
+                fit: BoxFit.cover,
+              ),
+              SafeArea(
+                left: false,
+                bottom: false,
+                top: false,
+                child: Stack(
+                  children: [
+                    BSInitiativeList(
+                      turnOrder: turnManager.turnOrder,
+                      activeIndex: turnManager.turnOrder.indexOf(
+                        selectedCharacter,
+                      ),
+                    ),
+                    BSBattleMonster(),
+                    BSBattleCharacter(),
+                    BSBattleLog(),
+                    BSBattleAttack(
+                      selectedCharacter: selectedCharacter,
+                      onSpellTap: () => turnManager.removeFirst(),
+                    ),
+                    BSBackToStart(),
+                  ],
+                ),
+              ),
+
+              if (turnManager.turnMessage != null)
+                Container(
+                  color: Colors.black54,
+                  alignment: Alignment.center,
+                  child: Text(
+                    turnManager.turnMessage!,
+                    style: Theme.of(
+                      context,
+                    ).textTheme.headlineMedium?.copyWith(color: Colors.white),
+                  ),
+                ),
+            ],
           ),
-          SafeArea(
-            left: false,
-            bottom: false,
-            top: false,
-            child: Stack(
-              children: [
-                BSInitiativeList(turnOrder: turnOrder),
-
-                BSBattleMonster(),
-
-                BSBattleCharacter(),
-
-                BSBattleLog(),
-
-                BSBattleAttack(selectedCharacter: selectedCharacter),
-
-                BSBackToStart(),
-              ],
-            ),
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

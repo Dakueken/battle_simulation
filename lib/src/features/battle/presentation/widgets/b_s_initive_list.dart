@@ -1,13 +1,14 @@
-import 'package:battle_simulation/src/common/data/mock_data/characters.dart';
-import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
-import 'package:battle_simulation/src/common/data/mock_data/spell.dart';
-import 'package:battle_simulation/src/features/battle/domain/initative_builder.dart';
 import 'package:flutter/material.dart';
 
 class BSInitiativeList extends StatelessWidget {
   final List<dynamic> turnOrder;
+  final int activeIndex; // index of current turn
 
-  const BSInitiativeList({super.key, required this.turnOrder});
+  const BSInitiativeList({
+    super.key,
+    required this.turnOrder,
+    required this.activeIndex,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -17,22 +18,28 @@ class BSInitiativeList extends StatelessWidget {
       child: ListView.builder(
         itemCount: turnOrder.length,
         itemBuilder: (context, index) {
-          final characterOrMonster = turnOrder[index];
+          final participant = turnOrder[index];
+
+          final isActive = index == activeIndex;
+          final borderColor = isActive
+              ? Colors.yellowAccent
+              : Color.fromARGB(180, 255, 193, 7);
+          final borderWidth = isActive ? 3.0 : 1.0;
+
           return Align(
             alignment: Alignment.topLeft,
             child: Container(
               padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
               height: 48,
-              decoration: BoxDecoration(
-                color: Color.fromARGB(180, 47, 0, 117),
-                border: Border.all(
-                  width: 1,
-                  color: Color.fromARGB(180, 255, 193, 7),
-                ),
-              ),
               width: 72,
+              decoration: BoxDecoration(
+                color: isActive
+                    ? Color.fromARGB(200, 100, 0, 200)
+                    : Color.fromARGB(180, 47, 0, 117),
+                border: Border.all(width: borderWidth, color: borderColor),
+              ),
               child: Image.asset(
-                characterOrMonster.image,
+                participant.image,
                 alignment: Alignment.center,
                 fit: BoxFit.fitHeight,
               ),

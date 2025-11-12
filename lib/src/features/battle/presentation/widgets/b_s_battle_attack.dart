@@ -1,12 +1,16 @@
-import 'package:battle_simulation/src/common/data/mock_data/spell.dart';
+import 'package:flutter/material.dart';
 import 'package:battle_simulation/src/common/models/character.dart';
 import 'package:battle_simulation/src/common/models/monster.dart';
-import 'package:flutter/material.dart';
 
 class BSBattleAttack extends StatelessWidget {
   final dynamic selectedCharacter;
+  final VoidCallback? onSpellTap;
 
-  const BSBattleAttack({super.key, required this.selectedCharacter});
+  const BSBattleAttack({
+    super.key,
+    required this.selectedCharacter,
+    this.onSpellTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +31,19 @@ class BSBattleAttack extends StatelessWidget {
           itemCount: spellsToShow.length,
           itemBuilder: (context, index) {
             final spell = spellsToShow[index];
-            return Container(
-              padding: EdgeInsets.all(5),
-              decoration: BoxDecoration(
-                color: Color.fromARGB(180, 47, 0, 117),
-                border: Border.all(
-                  width: 5,
-                  color: Color.fromARGB(180, 255, 193, 7),
+
+            return GestureDetector(
+              onTap: isMonster ? null : onSpellTap,
+              child: Container(
+                padding: EdgeInsets.all(5),
+                width: 170,
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(180, 47, 0, 117),
+                  border: Border.all(
+                    width: 5,
+                    color: Color.fromARGB(180, 255, 193, 7),
+                  ),
                 ),
-              ),
-              width: 170,
-              child: GestureDetector(
-                onTap: () {},
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
