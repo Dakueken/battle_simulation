@@ -1,4 +1,5 @@
 import 'package:battle_simulation/src/common/models/character.dart';
+import 'package:battle_simulation/src/common/models/spell.dart';
 
 List<Character> characters = [
   Character(
@@ -12,6 +13,9 @@ List<Character> characters = [
     image: "lib/assets/characters/character_a.png",
     inBattle: true,
     haste: 1,
+    characterSpells: [
+      Spell(name: "one", dmg: 1, cd: 1, delay: 1, element: SpellType.Fire.name),
+    ],
   ),
   Character(
     name: "Character B",
@@ -24,6 +28,9 @@ List<Character> characters = [
     image: "lib/assets/characters/character_b.png",
     inBattle: true,
     haste: 1,
+    characterSpells: [
+      Spell(name: "two", dmg: 1, cd: 1, delay: 1, element: SpellType.Fire.name),
+    ],
   ),
   Character(
     name: "Character C",
@@ -36,6 +43,15 @@ List<Character> characters = [
     image: "lib/assets/characters/character_c.png",
     inBattle: true,
     haste: 1,
+    characterSpells: [
+      Spell(
+        name: "three",
+        dmg: 1,
+        cd: 1,
+        delay: 1,
+        element: SpellType.Fire.name,
+      ),
+    ],
   ),
   Character(
     name: "Character D",
@@ -48,5 +64,14 @@ List<Character> characters = [
     image: "lib/assets/characters/character_d.png",
     inBattle: true,
     haste: 1,
+    characterSpells: [
+      Spell(
+        name: "four",
+        dmg: 1,
+        cd: 1,
+        delay: 1,
+        element: SpellType.Fire.name,
+      ),
+    ],
   ),
 ];
