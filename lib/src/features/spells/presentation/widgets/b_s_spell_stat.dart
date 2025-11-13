@@ -1,4 +1,3 @@
-import 'package:battle_simulation/src/common/data/mock_data/spells.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_textformfield.dart';
 import 'package:flutter/material.dart';
 
