@@ -29,47 +29,54 @@ class _CharacterScreenState extends State<CharacterScreen> {
             "lib/assets/backgrounds/tavern_background.jpg",
             fit: BoxFit.fill,
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
-            child: Form(
-              key: ValueKey('form_$selectedChar'),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  //Character Name
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        characters[selectedChar].name,
-                        style: Theme.of(context).textTheme.headlineLarge,
-                      ),
-                      BSBackButton(),
-                    ],
-                  ),
-                  SizedBox(height: 5),
+          SafeArea(
+            bottom: false,
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              child: Form(
+                key: ValueKey('form_$selectedChar'),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    //Character Name
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          characters[selectedChar].name,
+                          style: Theme.of(context).textTheme.headlineLarge,
+                        ),
+                        BSBackButton(),
+                      ],
+                    ),
+                    SizedBox(height: 5),
 
-                  //Stats
-                  Row(
-                    children: [
-                      BSStatsColumn(selectedChar: selectedChar, isChar: isChar),
+                    //Stats
+                    Row(
+                      children: [
+                        BSStatsColumn(
+                          selectedChar: selectedChar,
+                          isChar: isChar,
+                        ),
 
-                      // Spell List
-                      BSSpellList(),
-                    ],
-                  ),
+                        // Spell List
+                        BSSpellList(),
+                      ],
+                    ),
 
-                  BSSaveAbort(
-                    monster: false,
-                    selectedChar: selectedChar,
-                    onCharacterChange: (index) {
-                      setState(() {
-                        selectedChar = index;
-                      });
-                    },
-                  ),
-                ],
+                    BSSaveAbort(
+                      monster: false,
+                      selectedChar: selectedChar,
+                      onCharacterChange: (index) {
+                        setState(() {
+                          selectedChar = index;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

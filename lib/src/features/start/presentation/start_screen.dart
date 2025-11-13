@@ -15,13 +15,6 @@ class _StartScreenState extends State<StartScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(
-      //   title: Text(
-      //     ("${18 ~/ 4}"),
-      //     style: Theme.of(context).textTheme.headlineMedium,
-      //   ),
-      //   backgroundColor: Color.fromARGB(180, 255, 193, 7),
-      // ),
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -85,13 +78,6 @@ class _StartScreenState extends State<StartScreen> {
                     ),
                   ),
 
-                  /* ElevatedButton(
-                    onPressed: () {},
-                    child: Text(
-                      "Edit Party",
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
-                  ), */
                   ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(

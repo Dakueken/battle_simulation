@@ -1,7 +1,9 @@
+import 'package:battle_simulation/src/common/models/spell.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_back_button.dart';
-import 'package:battle_simulation/src/common/widgets/b_s_textformfield.dart';
-import 'package:battle_simulation/src/common/data/mock_data/spell.dart';
-import 'package:battle_simulation/src/features/spells/domain/spell_select.dart';
+import 'package:battle_simulation/src/common/data/mock_data/spells.dart';
+import 'package:battle_simulation/src/features/spells/presentation/widgets/b_s_spell_element.dart';
+import 'package:battle_simulation/src/features/spells/presentation/widgets/b_s_spell_save.dart';
+import 'package:battle_simulation/src/features/spells/presentation/widgets/b_s_spell_stat.dart';
 import 'package:flutter/material.dart';
 
 class SpellScreen extends StatefulWidget {
@@ -12,199 +14,81 @@ class SpellScreen extends StatefulWidget {
 }
 
 class _SpellScreenState extends State<SpellScreen> {
-  final List<String> spellTypes = ['Fire', 'Ice', 'Lightning', 'Heal'];
-  String selectedType = 'Fire';
-  int selectedSpell = 0;
-
   final _spellKey = GlobalKey<FormState>();
+  int selectedSpell = 0;
+  SpellType selectedType = SpellType.Fire;
+
+  void _onSpellChanged(int newSpell, SpellType newType) {
+    setState(() {
+      selectedSpell = newSpell;
+      selectedType = newType;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-
       body: Stack(
         fit: StackFit.expand,
         children: [
-          //Hintergrundbild
           Image.asset(
             "lib/assets/backgrounds/tavern_background.jpg",
             fit: BoxFit.fill,
           ),
-
-          //rest des screens
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
-            child: Form(
-              key: _spellKey,
-              child: Column(
-                spacing: 10,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  //Spell Name
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        spells[selectedSpell].name,
-                        style: Theme.of(context).textTheme.headlineLarge,
-                      ),
-                      BSBackButton(),
-                    ],
-                  ),
-                  SizedBox(height: 5),
-
-                  //Stats
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 300,
-                        child: Text(
-                          "Damage Modfier",
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                      ),
-                      BSTextFormField(
-                        initialText: spells[selectedSpell].dmg.toString(),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 300,
-                        child: Text(
-                          "Cooldown",
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                      ),
-                      BSTextFormField(
-                        initialText: spells[selectedSpell].cd.toString(),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 300,
-                        child: Text(
-                          "Delay",
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                      ),
-                      BSTextFormField(
-                        initialText: spells[selectedSpell].delay.toString(),
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: 300,
-                        child: Text(
-                          "Element",
-                          style: Theme.of(context).textTheme.headlineMedium,
-                        ),
-                      ),
-                      DropdownButton(
-                        dropdownColor: Color.fromARGB(180, 47, 0, 117),
-                        value: selectedType,
-                        icon: const Icon(
-                          Icons.arrow_drop_down,
-                          color: Colors.white,
-                        ),
-                        onChanged: (String? newValue) {
-                          setState(() {
-                            selectedType = newValue!;
-                          });
-                        },
-                        items: spellTypes.map((String spell) {
-                          return DropdownMenuItem<String>(
-                            value: spell,
-                            child: Text(
-                              spell,
-                              style: Theme.of(context).textTheme.headlineSmall,
-                            ),
-                          );
-                        }).toList(),
-                      ),
-                    ],
-                  ),
-
-                  //Botton Buttons
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      spacing: 10,
+          SafeArea(
+            bottom: false,
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 10),
+              child: Form(
+                key: _spellKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        ElevatedButton(
-                          onPressed: () async {
-                            final selectedIndex =
-                                await showModalBottomSheet<int>(
-                                  backgroundColor: Color.fromARGB(0, 0, 0, 0),
-                                  context: context,
-                                  isScrollControlled: true,
-                                  builder: (BuildContext context) {
-                                    return SpellSelect();
-                                  },
-                                );
-
-                            if (selectedIndex != null) {
-                              setState(() {
-                                selectedSpell = selectedIndex;
-                                selectedType = spells[selectedSpell].element;
-                              });
-                            }
-                          },
-
-                          child: Text(
-                            "Select Spell",
-                            style: Theme.of(context).textTheme.headlineMedium,
-                          ),
+                        Text(
+                          spells[selectedSpell].name,
+                          style: Theme.of(context).textTheme.headlineLarge,
                         ),
-                        ElevatedButton(
-                          onPressed: () {
-                            _spellKey.currentState?.reset();
-                          },
-                          child: Text(
-                            "Abort Changes",
-                            style: Theme.of(context).textTheme.headlineMedium,
-                          ),
-                        ),
-                        ElevatedButton(
-                          onPressed: () {
-                            if (_spellKey.currentState!.validate()) {
-                              _spellKey.currentState!.save();
-                              // TODO: Save logic
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  duration: Duration(seconds: 1),
-                                  backgroundColor: Color.fromARGB(
-                                    180,
-                                    255,
-                                    193,
-                                    7,
-                                  ),
-                                  content: Text(
-                                    'Änderungen gespeichert',
-                                    style: Theme.of(
-                                      context,
-                                    ).textTheme.headlineMedium,
-                                  ),
-                                ),
-                              );
-                            }
-                          },
-                          child: Text(
-                            "Save Changes",
-                            style: Theme.of(context).textTheme.headlineMedium,
-                          ),
-                        ),
+                        BSBackButton(),
                       ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 10),
+                    BSSpellStat(
+                      selectedSpell: selectedSpell,
+                      statName: "Damage Modifier",
+                      stat: spells[selectedSpell].dmg.toString(),
+                    ),
+                    BSSpellStat(
+                      selectedSpell: selectedSpell,
+                      statName: "Cooldown",
+                      stat: spells[selectedSpell].cd.toString(),
+                    ),
+                    BSSpellStat(
+                      selectedSpell: selectedSpell,
+                      statName: "Delay",
+                      stat: spells[selectedSpell].delay.toString(),
+                    ),
+                    BSSpellElement(
+                      selectedType: selectedType,
+                      onTypeChanged: (newType) {
+                        setState(() {
+                          selectedType = newType;
+                        });
+                      },
+                    ),
+                    BSSpellSave(
+                      spellKey: _spellKey,
+                      selectedSpell: selectedSpell,
+                      selectedType: selectedType,
+                      onSpellChanged: _onSpellChanged,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

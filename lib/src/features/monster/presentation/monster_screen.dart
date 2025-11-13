@@ -29,52 +29,56 @@ class _MonsterScreenState extends State<MonsterScreen> {
             "lib/assets/backgrounds/dungeon_background.jpg",
             fit: BoxFit.fill,
           ),
-          Padding(
-            padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
-            child: Form(
-              key: ValueKey('form_$selectedMonster'),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  //Monster Name
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        monsters[selectedMonster].name,
-                        style: Theme.of(context).textTheme.headlineLarge,
-                      ),
-                      BSBackButton(),
-                    ],
-                  ),
-                  SizedBox(height: 5),
+          SafeArea(
+            bottom: false,
+            top: false,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
+              child: Form(
+                key: ValueKey('form_$selectedMonster'),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    //Monster Name
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          monsters[selectedMonster].name,
+                          style: Theme.of(context).textTheme.headlineLarge,
+                        ),
+                        BSBackButton(),
+                      ],
+                    ),
+                    SizedBox(height: 5),
 
-                  //Stats
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      BSStatsColumn(
-                        selectedChar: selectedMonster,
-                        isChar: isChar,
-                      ),
+                    //Stats
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        BSStatsColumn(
+                          selectedChar: selectedMonster,
+                          isChar: isChar,
+                        ),
 
-                      // Spell List
-                      BSSpellList(),
-                    ],
-                  ),
+                        // Spell List
+                        BSSpellList(),
+                      ],
+                    ),
 
-                  BSSaveAbort(
-                    monster: true,
-                    selectedChar: selectedMonster,
-                    onCharacterChange: (index) {
-                      setState(() {
-                        selectedMonster = index;
-                      });
-                    },
-                  ),
-                ],
+                    BSSaveAbort(
+                      monster: true,
+                      selectedChar: selectedMonster,
+                      onCharacterChange: (index) {
+                        setState(() {
+                          selectedMonster = index;
+                        });
+                      },
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

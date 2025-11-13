@@ -1,4 +1,4 @@
-import 'package:battle_simulation/src/common/data/mock_data/spell.dart';
+import 'package:battle_simulation/src/common/data/mock_data/spells.dart';
 import 'package:flutter/material.dart';
 
 class BSSpellList extends StatelessWidget {

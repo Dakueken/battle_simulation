@@ -1,7 +1,7 @@
 import 'package:battle_simulation/src/common/models/monster.dart';
 import 'package:battle_simulation/src/common/data/mock_data/characters.dart';
 import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
-import 'package:battle_simulation/src/common/data/mock_data/spell.dart';
+import 'package:battle_simulation/src/common/data/mock_data/spells.dart';
 import 'package:battle_simulation/src/common/data/mock_data/messages.dart';
 import 'package:battle_simulation/src/features/battle/domain/b_s_turn_manager.dart';
 import 'package:battle_simulation/src/features/battle/domain/initative_builder.dart';
@@ -22,7 +22,6 @@ class BattleScreen extends StatefulWidget {
 
 class _BattleScreenState extends State<BattleScreen> {
   late BSTurnManager turnManager;
-
   @override
   void initState() {
     super.initState();
@@ -55,8 +54,8 @@ class _BattleScreenState extends State<BattleScreen> {
                 "lib/assets/backgrounds/arena_background.jpg",
                 fit: BoxFit.cover,
               ),
+
               SafeArea(
-                left: false,
                 bottom: false,
                 top: false,
                 child: Stack(

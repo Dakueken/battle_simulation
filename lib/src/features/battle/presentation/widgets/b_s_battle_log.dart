@@ -5,7 +5,7 @@ class BSBattleLog extends StatefulWidget {
   const BSBattleLog({super.key});
 
   @override
-  _BSBattleLogState createState() => _BSBattleLogState();
+  State<BSBattleLog> createState() => _BSBattleLogState();
 }
 
 class _BSBattleLogState extends State<BSBattleLog> {
