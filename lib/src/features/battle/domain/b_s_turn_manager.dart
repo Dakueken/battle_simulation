@@ -1,21 +1,37 @@
 import 'package:battle_simulation/src/common/models/monster.dart';
 import 'package:flutter/material.dart';
 
-class BSTurnManager extends ChangeNotifier {
-  List<dynamic> turnOrder;
-  int _currentIndex = 0;
-  String? turnMessage;
+class BSTurnManager {
+  final ValueNotifier<List<dynamic>> turnOrderNotifier;
+  final ValueNotifier<dynamic> currentNotifier;
+  final ValueNotifier<String?> turnMessageNotifier;
 
   final void Function(String)? onLog;
 
-  BSTurnManager({required this.turnOrder, this.onLog});
+  int _currentIndex = 0;
 
-  dynamic get current => turnOrder.isNotEmpty ? turnOrder[_currentIndex] : null;
+  BSTurnManager({required List<dynamic> turnOrder, this.onLog})
+    : turnOrderNotifier = ValueNotifier(turnOrder),
+      currentNotifier = ValueNotifier(
+        turnOrder.isNotEmpty ? turnOrder.first : null,
+      ),
+      turnMessageNotifier = ValueNotifier(null);
+
+  List<dynamic> get turnOrder => turnOrderNotifier.value;
+  dynamic get current => currentNotifier.value;
+
+  void _updateCurrent() {
+    if (turnOrder.isNotEmpty) {
+      currentNotifier.value = turnOrder[_currentIndex];
+    } else {
+      currentNotifier.value = null;
+    }
+  }
 
   void nextTurn() {
     if (turnOrder.isEmpty) return;
     _currentIndex = (_currentIndex + 1) % turnOrder.length;
-    notifyListeners();
+    _updateCurrent();
   }
 
   void removeFirst() {
@@ -27,34 +43,39 @@ class BSTurnManager extends ChangeNotifier {
       onLog!("$name has taken its move.");
     }
 
-    turnOrder.removeAt(0);
+    final newList = List<dynamic>.from(turnOrder)..removeAt(0);
+    turnOrderNotifier.value = newList;
     _currentIndex = 0;
-    notifyListeners();
+    _updateCurrent();
   }
 
   Future<void> handleMonsterTurn() async {
     if (turnOrder.isEmpty) return;
-
     final participant = current;
     if (participant is Monster) {
-      turnMessage = "Monster is taking its move...";
-      notifyListeners();
+      turnMessageNotifier.value = "Monster is taking its move...";
 
       if (onLog != null) {
         onLog!("${participant.name} is taking its move!");
       }
 
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(const Duration(seconds: 2));
 
-      turnMessage = null;
+      turnMessageNotifier.value = null;
       removeFirst();
     }
   }
 
   void reset(List<dynamic> newOrder) {
-    turnOrder = newOrder;
+    turnOrderNotifier.value = newOrder;
     _currentIndex = 0;
-    turnMessage = null;
-    notifyListeners();
+    _updateCurrent();
+    turnMessageNotifier.value = null;
+  }
+
+  void dispose() {
+    turnOrderNotifier.dispose();
+    currentNotifier.dispose();
+    turnMessageNotifier.dispose();
   }
 }

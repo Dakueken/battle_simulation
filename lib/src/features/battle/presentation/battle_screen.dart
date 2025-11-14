@@ -1,10 +1,10 @@
-import 'package:battle_simulation/src/common/models/monster.dart';
 import 'package:battle_simulation/src/common/data/mock_data/characters.dart';
+import 'package:battle_simulation/src/common/data/mock_data/messages.dart';
 import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
 import 'package:battle_simulation/src/common/data/mock_data/spells.dart';
-import 'package:battle_simulation/src/common/data/mock_data/messages.dart';
+import 'package:battle_simulation/src/common/models/monster.dart';
+import 'package:battle_simulation/src/features/battle/domain/b_s_initative_builder.dart';
 import 'package:battle_simulation/src/features/battle/domain/b_s_turn_manager.dart';
-import 'package:battle_simulation/src/features/battle/domain/initative_builder.dart';
 import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_back_to_start.dart';
 import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_battle_attack.dart';
 import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_battle_character.dart';
@@ -22,77 +22,99 @@ class BattleScreen extends StatefulWidget {
 
 class _BattleScreenState extends State<BattleScreen> {
   late BSTurnManager turnManager;
+  bool _monsterTurnScheduled = false;
+
   @override
   void initState() {
     super.initState();
     final initialTurnOrder = getTurnOrder(characters, monsters, spells);
     turnManager = BSTurnManager(
       turnOrder: initialTurnOrder,
-      onLog: (text) {
-        messages.add(text);
-      },
+      onLog: (text) => messages.add(text),
     );
   }
 
   @override
+  void dispose() {
+    turnManager.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: turnManager,
-      builder: (context, _) {
-        final selectedCharacter = turnManager.current;
+    return Scaffold(
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Background
+          Image.asset(
+            "lib/assets/backgrounds/arena_background.jpg",
+            fit: BoxFit.cover,
+          ),
 
-        if (selectedCharacter is Monster) {
-          turnManager.handleMonsterTurn();
-        }
+          SafeArea(
+            bottom: false,
+            top: false,
+            child: Stack(
+              children: [
+                ValueListenableBuilder<List<dynamic>>(
+                  valueListenable: turnManager.turnOrderNotifier,
+                  builder: (context, turnOrder, _) {
+                    final current = turnManager.currentNotifier.value;
+                    return BSInitiativeList(
+                      turnOrder: turnOrder,
+                      activeIndex: turnOrder.indexOf(current),
+                    );
+                  },
+                ),
 
-        return Scaffold(
-          body: Stack(
-            fit: StackFit.expand,
-            children: [
-              // Background
-              Image.asset(
-                "lib/assets/backgrounds/arena_background.jpg",
-                fit: BoxFit.cover,
-              ),
+                const BSBattleMonster(),
 
-              SafeArea(
-                bottom: false,
-                top: false,
-                child: Stack(
-                  children: [
-                    BSInitiativeList(
-                      turnOrder: turnManager.turnOrder,
-                      activeIndex: turnManager.turnOrder.indexOf(
-                        selectedCharacter,
-                      ),
-                    ),
-                    BSBattleMonster(),
-                    BSBattleCharacter(),
-                    BSBattleLog(),
-                    BSBattleAttack(
+                const BSBattleCharacter(),
+
+                const BSBattleLog(),
+
+                ValueListenableBuilder<dynamic>(
+                  valueListenable: turnManager.currentNotifier,
+                  builder: (context, selectedCharacter, _) {
+                    if (selectedCharacter is Monster &&
+                        !_monsterTurnScheduled) {
+                      _monsterTurnScheduled = true;
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                        _monsterTurnScheduled = false;
+                        turnManager.handleMonsterTurn();
+                      });
+                    }
+
+                    return BSBattleAttack(
                       selectedCharacter: selectedCharacter,
                       onSpellTap: () => turnManager.removeFirst(),
-                    ),
-                    BSBackToStart(),
-                  ],
+                    );
+                  },
                 ),
-              ),
 
-              if (turnManager.turnMessage != null)
-                Container(
-                  color: Colors.black54,
-                  alignment: Alignment.center,
-                  child: Text(
-                    turnManager.turnMessage!,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.headlineMedium?.copyWith(color: Colors.white),
-                  ),
+                const BSBackToStart(),
+
+                ValueListenableBuilder<String?>(
+                  valueListenable: turnManager.turnMessageNotifier,
+                  builder: (context, message, _) {
+                    if (message == null) return const SizedBox.shrink();
+                    return Container(
+                      color: Colors.black54,
+                      alignment: Alignment.center,
+                      child: Text(
+                        message,
+                        style: Theme.of(context).textTheme.headlineMedium
+                            ?.copyWith(color: Colors.white),
+                      ),
+                    );
+                  },
                 ),
-            ],
+              ],
+            ),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 }
