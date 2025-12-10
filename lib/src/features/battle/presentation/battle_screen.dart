@@ -46,7 +46,6 @@ class _BattleScreenState extends State<BattleScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          // Background
           Image.asset(
             "lib/assets/backgrounds/arena_background.jpg",
             fit: BoxFit.cover,

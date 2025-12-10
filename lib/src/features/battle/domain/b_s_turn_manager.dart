@@ -79,3 +79,5 @@ class BSTurnManager {
     turnMessageNotifier.dispose();
   }
 }
+
+void addNewTurn() {}
