@@ -44,6 +44,7 @@ class BSTurnManager {
     }
 
     final newList = List<dynamic>.from(turnOrder)..removeAt(0);
+    newList.add(participant);
     turnOrderNotifier.value = newList;
     _currentIndex = 0;
     _updateCurrent();
@@ -79,5 +80,3 @@ class BSTurnManager {
     turnMessageNotifier.dispose();
   }
 }
-
-void addNewTurn() {}
