@@ -24,7 +24,6 @@ class _CharacterScreenState extends State<CharacterScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          //Hintergrundbild
           Image.asset(
             "lib/assets/backgrounds/tavern_background.jpg",
             fit: BoxFit.fill,
@@ -40,7 +39,6 @@ class _CharacterScreenState extends State<CharacterScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    //Character Name
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -52,16 +50,12 @@ class _CharacterScreenState extends State<CharacterScreen> {
                       ],
                     ),
                     SizedBox(height: 5),
-
-                    //Stats
                     Row(
                       children: [
                         BSStatsColumn(
                           selectedChar: selectedChar,
                           isChar: isChar,
                         ),
-
-                        // Spell List
                         BSSpellList(),
                       ],
                     ),

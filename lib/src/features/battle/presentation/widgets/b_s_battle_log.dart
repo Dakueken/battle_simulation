@@ -1,44 +1,32 @@
-import 'package:battle_simulation/src/common/data/mock_data/messages.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BSBattleLog extends StatefulWidget {
+import 'package:battle_simulation/src/common/providers/data_providers.dart';
+
+class BSBattleLog extends ConsumerWidget {
   const BSBattleLog({super.key});
 
   @override
-  State<BSBattleLog> createState() => _BSBattleLogState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final messages = ref.watch(messagesProvider);
+    final scrollController = ScrollController();
 
-class _BSBattleLogState extends State<BSBattleLog> {
-  final ScrollController _scrollController = ScrollController();
-
-  @override
-  void didUpdateWidget(covariant BSBattleLog oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _scrollToBottom();
-  }
-
-  void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (_scrollController.hasClients) {
-        _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+      if (scrollController.hasClients) {
+        scrollController.jumpTo(scrollController.position.maxScrollExtent);
       }
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) => _scrollToBottom());
 
     return Align(
       alignment: Alignment.topCenter,
       child: Container(
-        padding: EdgeInsets.all(10),
-        color: Color.fromARGB(152, 0, 0, 0),
+        padding: const EdgeInsets.all(10),
+        color: const Color.fromARGB(152, 0, 0, 0),
         width: 450,
         height: 150,
         child: SingleChildScrollView(
           padding: const EdgeInsets.fromLTRB(0, 5, 30, 5),
-          controller: _scrollController,
+          controller: scrollController,
           child: Text(
             messages.join('\n'),
             style: Theme.of(context).textTheme.headlineSmall,
@@ -46,11 +34,5 @@ class _BSBattleLogState extends State<BSBattleLog> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
   }
 }

@@ -1,26 +1,32 @@
+import 'package:battle_simulation/src/common/providers/character_providers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BSBattleCharacter extends StatelessWidget {
+class BSBattleCharacter extends ConsumerWidget {
   const BSBattleCharacter({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final characters = ref.watch(charactersProvider);
+
     return Align(
       alignment: Alignment.centerRight,
       child: Container(
         width: 120,
-        color: Color.fromARGB(100, 0, 0, 0),
+        color: const Color.fromARGB(100, 0, 0, 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           spacing: 10,
-          children: [
-            Container(
+          children: characters.map((character) {
+            final hpText = "${character.currentHP}/${character.maxHP}";
+
+            return Container(
               decoration: BoxDecoration(
-                color: Color.fromARGB(180, 47, 0, 117),
+                color: const Color.fromARGB(180, 47, 0, 117),
                 border: Border.all(
                   width: 5,
-                  color: Color.fromARGB(180, 255, 193, 7),
+                  color: const Color.fromARGB(180, 255, 193, 7),
                 ),
               ),
               child: Column(
@@ -28,94 +34,16 @@ class BSBattleCharacter extends StatelessWidget {
                 children: [
                   SizedBox(
                     height: 48,
-                    child: Image.asset(
-                      "lib/assets/characters/character_a.png",
-                      fit: BoxFit.fill,
-                    ),
+                    child: Image.asset(character.image, fit: BoxFit.fill),
                   ),
                   Text(
-                    "2000/2000",
+                    hpText,
                     style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ],
               ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(180, 47, 0, 117),
-                border: Border.all(
-                  width: 5,
-                  color: Color.fromARGB(180, 255, 193, 7),
-                ),
-              ),
-              child: Column(
-                spacing: 10,
-                children: [
-                  SizedBox(
-                    height: 48,
-                    child: Image.asset(
-                      "lib/assets/characters/character_b.png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Text(
-                    "2000/2000",
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(180, 47, 0, 117),
-                border: Border.all(
-                  width: 5,
-                  color: Color.fromARGB(180, 255, 193, 7),
-                ),
-              ),
-              child: Column(
-                spacing: 10,
-                children: [
-                  SizedBox(
-                    height: 48,
-                    child: Image.asset(
-                      "lib/assets/characters/character_c.png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Text(
-                    "2000/2000",
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                color: Color.fromARGB(180, 47, 0, 117),
-                border: Border.all(
-                  width: 5,
-                  color: Color.fromARGB(180, 255, 193, 7),
-                ),
-              ),
-              child: Column(
-                spacing: 10,
-                children: [
-                  SizedBox(
-                    height: 48,
-                    child: Image.asset(
-                      "lib/assets/characters/character_d.png",
-                      fit: BoxFit.fill,
-                    ),
-                  ),
-                  Text(
-                    "2000/2000",
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ],
-              ),
-            ),
-          ],
+            );
+          }).toList(),
         ),
       ),
     );

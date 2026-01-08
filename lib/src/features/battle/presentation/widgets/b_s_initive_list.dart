@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BSInitiativeList extends StatelessWidget {
+class BSInitiativeList extends ConsumerWidget {
   final List<dynamic> turnOrder;
-  final int activeIndex; // index of current turn
-
+  final int activeIndex;
   const BSInitiativeList({
     super.key,
     required this.turnOrder,
@@ -11,9 +11,9 @@ class BSInitiativeList extends StatelessWidget {
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Container(
-      color: Color.fromARGB(100, 0, 0, 0),
+      color: const Color.fromARGB(100, 0, 0, 0),
       width: 72,
       child: ListView.builder(
         itemCount: turnOrder.length,
@@ -23,19 +23,19 @@ class BSInitiativeList extends StatelessWidget {
           final isActive = index == activeIndex;
           final borderColor = isActive
               ? Colors.yellowAccent
-              : Color.fromARGB(180, 255, 193, 7);
+              : const Color.fromARGB(180, 255, 193, 7);
           final borderWidth = isActive ? 3.0 : 1.0;
 
           return Align(
             alignment: Alignment.topLeft,
             child: Container(
-              padding: EdgeInsets.fromLTRB(0, 0, 5, 0),
+              padding: const EdgeInsets.fromLTRB(0, 0, 5, 0),
               height: 48,
               width: 72,
               decoration: BoxDecoration(
                 color: isActive
-                    ? Color.fromARGB(200, 100, 0, 200)
-                    : Color.fromARGB(180, 47, 0, 117),
+                    ? const Color.fromARGB(200, 100, 0, 200)
+                    : const Color.fromARGB(180, 47, 0, 117),
                 border: Border.all(width: borderWidth, color: borderColor),
               ),
               child: Image.asset(

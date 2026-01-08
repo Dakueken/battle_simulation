@@ -1,41 +1,24 @@
+import 'package:battle_simulation/src/common/providers/monsters_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BSBattleMonster extends StatelessWidget {
+class BSBattleMonster extends ConsumerWidget {
   const BSBattleMonster({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final monsters = ref.watch(monstersProvider);
+
+    if (monsters.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 350,
-          child: Column(
-            spacing: 10,
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              SizedBox(
-                width: 100,
-                height: 20,
-                child: LinearProgressIndicator(
-                  value: 10 / 120,
-                  backgroundColor: Colors.red,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
-                ),
-              ),
-              SizedBox(
-                height: 140,
-                width: 200,
-                child: Image.asset(
-                  "lib/assets/monster/blue/idle/frame-1.png",
-                  fit: BoxFit.contain,
-                ),
-              ),
-            ],
-          ),
-        ),
+      children: monsters.map((monster) {
+        final hpPercent = monster.currentHP / monster.maxHP;
 
-        SizedBox(
+        return SizedBox(
           height: 350,
           child: Column(
             spacing: 10,
@@ -45,23 +28,20 @@ class BSBattleMonster extends StatelessWidget {
                 width: 100,
                 height: 20,
                 child: LinearProgressIndicator(
-                  value: 40 / 120,
+                  value: hpPercent,
                   backgroundColor: Colors.red,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.green),
+                  valueColor: const AlwaysStoppedAnimation<Color>(Colors.green),
                 ),
               ),
               SizedBox(
                 height: 140,
                 width: 200,
-                child: Image.asset(
-                  "lib/assets/monster/green/idle/frame-1.png",
-                  fit: BoxFit.contain,
-                ),
+                child: Image.asset(monster.image, fit: BoxFit.contain),
               ),
             ],
           ),
-        ),
-      ],
+        );
+      }).toList(),
     );
   }
 }

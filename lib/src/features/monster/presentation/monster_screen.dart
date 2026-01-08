@@ -24,7 +24,6 @@ class _MonsterScreenState extends State<MonsterScreen> {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          //Hintergrundbild
           Image.asset(
             "lib/assets/backgrounds/dungeon_background.jpg",
             fit: BoxFit.fill,
@@ -40,7 +39,6 @@ class _MonsterScreenState extends State<MonsterScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    //Monster Name
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -52,8 +50,6 @@ class _MonsterScreenState extends State<MonsterScreen> {
                       ],
                     ),
                     SizedBox(height: 5),
-
-                    //Stats
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -62,8 +58,6 @@ class _MonsterScreenState extends State<MonsterScreen> {
                           selectedChar: selectedMonster,
                           isChar: isChar,
                         ),
-
-                        // Spell List
                         BSSpellList(),
                       ],
                     ),

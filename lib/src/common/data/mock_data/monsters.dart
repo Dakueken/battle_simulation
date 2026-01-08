@@ -3,6 +3,7 @@ import 'package:battle_simulation/src/common/models/monster.dart';
 List<Monster> monsters = [
   Monster(
     name: "Monster A",
+    currentHP: 1000,
     maxHP: 1000,
     armor: 1,
     luck: 2,
@@ -14,6 +15,7 @@ List<Monster> monsters = [
   Monster(
     name: "Monster B",
     maxHP: 1000,
+    currentHP: 1000,
     armor: 5,
     luck: 6,
     mp: 7,
@@ -24,6 +26,7 @@ List<Monster> monsters = [
   Monster(
     name: "Monster C",
     maxHP: 1000,
+    currentHP: 1000,
     armor: 9,
     luck: 1,
     mp: 2,
