@@ -1,4 +1,4 @@
-import 'package:battle_simulation/src/common/providers/spell_editor_provider.dart';
+import 'package:battle_simulation/src/common/providers/spells/spell_editor_provider.dart';
 import 'package:battle_simulation/src/features/spells/domain/spell_select.dart';
 
 import 'package:flutter/material.dart';

@@ -1,4 +1,4 @@
-import 'package:battle_simulation/src/common/providers/character_providers.dart';
+import 'package:battle_simulation/src/common/providers/character/character_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

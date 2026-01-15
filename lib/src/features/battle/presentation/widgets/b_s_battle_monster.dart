@@ -1,4 +1,4 @@
-import 'package:battle_simulation/src/common/providers/monsters_provider.dart';
+import 'package:battle_simulation/src/common/providers/monster/monsters_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

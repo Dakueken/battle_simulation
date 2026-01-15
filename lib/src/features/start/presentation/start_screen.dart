@@ -1,4 +1,4 @@
-import 'package:battle_simulation/src/common/providers/turn_manager_provider.dart';
+import 'package:battle_simulation/src/common/providers/initativelist/turn_manager_provider.dart';
 import 'package:battle_simulation/src/features/battle/presentation/battle_screen.dart';
 import 'package:battle_simulation/src/features/character/presentation/character_screen.dart';
 import 'package:battle_simulation/src/features/monster/presentation/monster_screen.dart';

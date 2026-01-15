@@ -1,7 +1,7 @@
 import 'package:battle_simulation/src/features/start/presentation/start_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:battle_simulation/src/common/providers/turn_manager_provider.dart';
+import 'package:battle_simulation/src/common/providers/initativelist/turn_manager_provider.dart';
 
 class BSBackToStart extends ConsumerWidget {
   const BSBackToStart({super.key});

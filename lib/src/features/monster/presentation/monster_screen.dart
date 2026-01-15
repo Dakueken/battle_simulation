@@ -1,4 +1,4 @@
-import 'package:battle_simulation/src/common/providers/monster_editor_provider.dart';
+import 'package:battle_simulation/src/common/providers/monster/monster_editor_provider.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_back_button.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_save_abort.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_spell_list.dart';

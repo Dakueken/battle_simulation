@@ -4,9 +4,9 @@ import 'package:battle_simulation/src/common/models/character.dart';
 import 'package:battle_simulation/src/common/models/monster.dart';
 import 'package:battle_simulation/src/common/models/spell.dart';
 
-import 'package:battle_simulation/src/common/providers/character_providers.dart';
-import 'package:battle_simulation/src/common/providers/monsters_provider.dart';
-import 'package:battle_simulation/src/common/providers/turn_order_provider.dart';
+import 'package:battle_simulation/src/common/providers/character/character_providers.dart';
+import 'package:battle_simulation/src/common/providers/monster/monsters_provider.dart';
+import 'package:battle_simulation/src/common/providers/initativelist/turn_order_provider.dart';
 import 'package:battle_simulation/src/common/providers/data_providers.dart';
 
 typedef TurnState = ({

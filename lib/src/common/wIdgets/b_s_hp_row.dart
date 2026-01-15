@@ -1,5 +1,5 @@
-import 'package:battle_simulation/src/common/providers/character_providers.dart';
-import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
+import 'package:battle_simulation/src/common/providers/character/character_providers.dart';
+import 'package:battle_simulation/src/common/providers/monster/monsters_provider.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_textformfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,7 +15,7 @@ class BSHpRow extends ConsumerWidget {
     final character = isChar
         ? ref.watch(charactersProvider)[selectedChar]
         : null;
-    final monster = isChar ? null : monsters[selectedChar];
+    final monster = isChar ? null : ref.watch(monstersProvider)[selectedChar];
 
     return Row(
       children: [
@@ -53,7 +53,9 @@ class BSHpRow extends ConsumerWidget {
                   .read(charactersProvider.notifier)
                   .updateCharacter(selectedChar, updated);
             } else {
-              monster!.maxHP = value.toInt();
+              ref
+                  .read(monstersProvider.notifier)
+                  .setMaxHP(selectedChar, value.toInt());
             }
           },
         ),

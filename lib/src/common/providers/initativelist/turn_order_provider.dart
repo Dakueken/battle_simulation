@@ -1,7 +1,7 @@
 import 'package:riverpod/riverpod.dart';
 
-import 'package:battle_simulation/src/common/providers/character_providers.dart';
-import 'package:battle_simulation/src/common/providers/monsters_provider.dart';
+import 'package:battle_simulation/src/common/providers/character/character_providers.dart';
+import 'package:battle_simulation/src/common/providers/monster/monsters_provider.dart';
 import 'package:battle_simulation/src/common/providers/data_providers.dart';
 
 import 'package:battle_simulation/src/common/models/character.dart';

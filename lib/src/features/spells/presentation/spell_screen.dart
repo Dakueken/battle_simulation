@@ -1,5 +1,5 @@
 import 'package:battle_simulation/src/common/data/mock_data/spells.dart';
-import 'package:battle_simulation/src/common/providers/spell_editor_provider.dart';
+import 'package:battle_simulation/src/common/providers/spells/spell_editor_provider.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_back_button.dart';
 import 'package:battle_simulation/src/features/spells/presentation/widgets/b_s_spell_element.dart';
 import 'package:battle_simulation/src/features/spells/presentation/widgets/b_s_spell_save.dart';

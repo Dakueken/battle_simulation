@@ -8,7 +8,7 @@ final partySelectionProvider =
 class PartySelectionNotifier extends Notifier<List<bool>> {
   @override
   List<bool> build() {
-    return List.generate(10, (_) => false); // adjust length to your characters
+    return List.generate(10, (_) => false);
   }
 
   void toggle(int index, bool value) {

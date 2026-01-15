@@ -1,8 +1,8 @@
 import 'package:battle_simulation/src/common/models/monster.dart';
 import 'package:battle_simulation/src/common/models/spell.dart';
-import 'package:battle_simulation/src/common/providers/character_providers.dart';
-import 'package:battle_simulation/src/common/providers/monsters_provider.dart';
-import 'package:battle_simulation/src/common/providers/turn_manager_provider.dart';
+import 'package:battle_simulation/src/common/providers/character/character_providers.dart';
+import 'package:battle_simulation/src/common/providers/monster/monsters_provider.dart';
+import 'package:battle_simulation/src/common/providers/initativelist/turn_manager_provider.dart';
 import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_back_to_start.dart';
 import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_battle_attack.dart';
 import 'package:battle_simulation/src/features/battle/presentation/widgets/b_s_battle_character.dart';

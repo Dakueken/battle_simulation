@@ -3,7 +3,7 @@ import 'package:battle_simulation/src/common/widgets/b_s_save_abort.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_spell_list.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_stats_column.dart';
 import 'package:battle_simulation/src/common/providers/selected_character_provider.dart';
-import 'package:battle_simulation/src/common/providers/character_providers.dart';
+import 'package:battle_simulation/src/common/providers/character/character_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -36,7 +36,6 @@ class CharacterScreen extends ConsumerWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    // Header row
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -49,16 +48,12 @@ class CharacterScreen extends ConsumerWidget {
                     ),
 
                     const SizedBox(height: 5),
-
-                    // Stats + Spells (ORIGINAL LAYOUT)
                     Row(
                       children: [
                         BSStatsColumn(selectedChar: selectedChar, isChar: true),
                         const BSSpellList(),
                       ],
                     ),
-
-                    // Save / Abort / Change Character
                     Builder(
                       builder: (context) {
                         return BSSaveAbort(
