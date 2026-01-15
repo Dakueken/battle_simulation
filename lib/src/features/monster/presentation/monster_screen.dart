@@ -1,26 +1,25 @@
+import 'package:battle_simulation/src/common/providers/monster_editor_provider.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_back_button.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_save_abort.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_spell_list.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_stats_column.dart';
 import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
-import 'package:flutter/material.dart';
 
-class MonsterScreen extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class MonsterScreen extends ConsumerWidget {
   const MonsterScreen({super.key});
 
   @override
-  State<MonsterScreen> createState() => _MonsterScreenState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final monsterState = ref.watch(monsterEditorProvider);
+    final monsterNotifier = ref.read(monsterEditorProvider.notifier);
 
-class _MonsterScreenState extends State<MonsterScreen> {
-  int selectedMonster = 0;
-  final bool isChar = false;
+    final selectedMonster = monsterState.selectedMonster;
 
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-
       body: Stack(
         fit: StackFit.expand,
         children: [
@@ -28,6 +27,7 @@ class _MonsterScreenState extends State<MonsterScreen> {
             "lib/assets/backgrounds/dungeon_background.jpg",
             fit: BoxFit.fill,
           ),
+
           SafeArea(
             bottom: false,
             top: false,
@@ -46,19 +46,21 @@ class _MonsterScreenState extends State<MonsterScreen> {
                           monsters[selectedMonster].name,
                           style: Theme.of(context).textTheme.headlineLarge,
                         ),
-                        BSBackButton(),
+                        const BSBackButton(),
                       ],
                     ),
-                    SizedBox(height: 5),
+
+                    const SizedBox(height: 5),
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         BSStatsColumn(
                           selectedChar: selectedMonster,
-                          isChar: isChar,
+                          isChar: false,
                         ),
-                        BSSpellList(),
+                        const BSSpellList(),
                       ],
                     ),
 
@@ -66,9 +68,7 @@ class _MonsterScreenState extends State<MonsterScreen> {
                       monster: true,
                       selectedChar: selectedMonster,
                       onCharacterChange: (index) {
-                        setState(() {
-                          selectedMonster = index;
-                        });
+                        monsterNotifier.selectMonster(index);
                       },
                     ),
                   ],

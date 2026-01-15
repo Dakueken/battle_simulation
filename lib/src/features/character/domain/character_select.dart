@@ -1,21 +1,20 @@
 import 'package:battle_simulation/src/common/data/mock_data/characters.dart';
-import 'package:flutter/material.dart';
+import 'package:battle_simulation/src/common/providers/character_editor_provider.dart';
 
-class CharacterSelect extends StatefulWidget {
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+class CharacterSelect extends ConsumerWidget {
   const CharacterSelect({super.key});
 
   @override
-  State<CharacterSelect> createState() => _CharacterSelectState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final characterState = ref.watch(characterEditorProvider);
+    final characterNotifier = ref.read(characterEditorProvider.notifier);
 
-class _CharacterSelectState extends State<CharacterSelect> {
-  List<bool> checkboxValues = List.generate(characters.length, (x) => false);
-
-  @override
-  Widget build(BuildContext context) {
     return Container(
       height: 150,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color.fromARGB(152, 0, 0, 0),
         borderRadius: BorderRadius.all(Radius.zero),
       ),
@@ -32,9 +31,7 @@ class _CharacterSelectState extends State<CharacterSelect> {
                   width: 150,
                   height: 40,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+                    onPressed: () => Navigator.of(context).pop(),
                     child: Text(
                       "back",
                       style: Theme.of(context).textTheme.headlineSmall,
@@ -44,23 +41,27 @@ class _CharacterSelectState extends State<CharacterSelect> {
               ],
             ),
           ),
-          SizedBox(height: 5),
+
+          const SizedBox(height: 5),
+
           Expanded(
             child: ListView.separated(
-              separatorBuilder: (context, index) => SizedBox(width: 5),
+              separatorBuilder: (_, __) => const SizedBox(width: 5),
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               itemCount: characters.length,
               itemBuilder: (context, index) {
+                final isInParty = characterState.inParty[index];
+
                 return ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: 120),
+                  constraints: const BoxConstraints(minWidth: 120),
                   child: Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(180, 47, 0, 117),
+                      color: const Color.fromARGB(180, 47, 0, 117),
                       border: Border.all(
                         width: 5,
-                        color: Color.fromARGB(180, 255, 193, 7),
+                        color: const Color.fromARGB(180, 255, 193, 7),
                       ),
                     ),
 
@@ -79,19 +80,19 @@ class _CharacterSelectState extends State<CharacterSelect> {
                                       ?.copyWith(fontSize: 10),
                                 ),
                                 Checkbox(
-                                  value: checkboxValues[index],
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      checkboxValues[index] = value!;
-                                    });
+                                  value: isInParty,
+                                  onChanged: (_) {
+                                    characterNotifier.toggleCharacterInParty(
+                                      index,
+                                      context,
+                                    );
                                   },
                                 ),
                               ],
                             ),
+
                             GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop(index);
-                              },
+                              onTap: () => Navigator.of(context).pop(index),
                               child: SizedBox(
                                 height: 64,
                                 child: Image.asset(

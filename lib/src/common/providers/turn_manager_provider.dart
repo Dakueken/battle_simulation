@@ -49,7 +49,8 @@ class TurnManagerNotifier extends Notifier<TurnState> {
     }
   }
 
-  void _handleMonsterTurn(Monster monster) {
+  void _handleMonsterTurn(Monster monster) async {
+    await Future.delayed(const Duration(seconds: 5));
     final characters = ref.read(charactersProvider);
 
     final target = characters.firstWhere(
@@ -77,7 +78,7 @@ class TurnManagerNotifier extends Notifier<TurnState> {
   }
 
   void playerAttack(Character attacker, Monster target, Spell spell) {
-    final dmg = spell.dmg.toInt();
+    final dmg = 100; //spell.dmg.toInt();
 
     final monsters = ref.read(monstersProvider);
     final idx = monsters.indexOf(target);

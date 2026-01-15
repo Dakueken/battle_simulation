@@ -1,22 +1,22 @@
 import 'package:battle_simulation/src/common/models/spell.dart';
 
 class Character {
-  int maxHP;
-  int currentHP;
-  int armor;
-  int mp;
-  int speed;
-  int luck;
+  final int maxHP;
+  final int currentHP;
+  final int armor;
+  final int mp;
+  final int speed;
+  final int luck;
 
-  String name;
-  String image;
+  final String name;
+  final String image;
 
-  double haste;
-  bool inBattle;
+  final double haste;
+  final bool inBattle;
 
-  List<Spell> characterSpells;
+  final List<Spell> characterSpells;
 
-  Character({
+  const Character({
     required this.name,
     required this.maxHP,
     required this.currentHP,
@@ -54,7 +54,7 @@ class Character {
       image: image ?? this.image,
       inBattle: inBattle ?? this.inBattle,
       haste: haste ?? this.haste,
-      characterSpells: characterSpells ?? this.characterSpells,
+      characterSpells: characterSpells ?? List.of(this.characterSpells),
     );
   }
 }

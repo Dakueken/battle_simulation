@@ -1,39 +1,18 @@
-import 'package:battle_simulation/src/common/data/mock_data/spells.dart';
-import 'package:battle_simulation/src/common/models/spell.dart';
+import 'package:battle_simulation/src/common/providers/spell_editor_provider.dart';
 import 'package:battle_simulation/src/features/spells/domain/spell_select.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class BSSpellSave extends StatefulWidget {
+class BSSpellSave extends ConsumerWidget {
   final GlobalKey<FormState> spellKey;
-  final SpellType selectedType;
-  final int selectedSpell;
-  final Function(int newSpell, SpellType newType) onSpellChanged;
 
-  const BSSpellSave({
-    super.key,
-    required this.spellKey,
-    required this.selectedSpell,
-    required this.selectedType,
-    required this.onSpellChanged,
-  });
+  const BSSpellSave({super.key, required this.spellKey});
 
   @override
-  State<BSSpellSave> createState() => _BSSpellSaveState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final spellNotifier = ref.read(spellEditorProvider.notifier);
 
-class _BSSpellSaveState extends State<BSSpellSave> {
-  late int selectedSpell;
-  late SpellType selectedType;
-
-  @override
-  void initState() {
-    super.initState();
-    selectedSpell = widget.selectedSpell;
-    selectedType = widget.selectedType;
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.bottomCenter,
       child: Row(
@@ -46,18 +25,12 @@ class _BSSpellSaveState extends State<BSSpellSave> {
                 context: context,
                 isScrollControlled: true,
                 builder: (BuildContext context) {
-                  return SpellSelect();
+                  return const SpellSelect();
                 },
               );
 
               if (selectedIndex != null) {
-                setState(() {
-                  selectedSpell = selectedIndex;
-                  selectedType = SpellType.values.firstWhere(
-                    (e) => e.name == spells[selectedSpell].element,
-                  );
-                  widget.onSpellChanged(selectedSpell, selectedType);
-                });
+                spellNotifier.selectSpell(selectedIndex);
               }
             },
             child: Text(
@@ -65,29 +38,30 @@ class _BSSpellSaveState extends State<BSSpellSave> {
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
+
           const SizedBox(width: 10),
+
           ElevatedButton(
             onPressed: () {
-              widget.spellKey.currentState?.reset();
+              spellKey.currentState?.reset();
             },
             child: Text(
               "Abort Changes",
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
+
           const SizedBox(width: 10),
+
           ElevatedButton(
             onPressed: () {
-              if (widget.spellKey.currentState!.validate()) {
-                widget.spellKey.currentState!.save();
+              if (spellKey.currentState!.validate()) {
+                spellKey.currentState!.save();
+
                 ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    duration: const Duration(seconds: 1),
-                    backgroundColor: const Color.fromARGB(180, 255, 193, 7),
-                    content: Text(
-                      'Änderungen gespeichert',
-                      style: Theme.of(context).textTheme.headlineMedium,
-                    ),
+                  const SnackBar(
+                    content: Text('Saved'),
+                    duration: Duration(milliseconds: 50),
                   ),
                 );
               }

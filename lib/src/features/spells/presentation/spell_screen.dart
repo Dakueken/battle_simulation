@@ -1,32 +1,26 @@
-import 'package:battle_simulation/src/common/models/spell.dart';
-import 'package:battle_simulation/src/common/widgets/b_s_back_button.dart';
 import 'package:battle_simulation/src/common/data/mock_data/spells.dart';
+import 'package:battle_simulation/src/common/providers/spell_editor_provider.dart';
+import 'package:battle_simulation/src/common/widgets/b_s_back_button.dart';
 import 'package:battle_simulation/src/features/spells/presentation/widgets/b_s_spell_element.dart';
 import 'package:battle_simulation/src/features/spells/presentation/widgets/b_s_spell_save.dart';
 import 'package:battle_simulation/src/features/spells/presentation/widgets/b_s_spell_stat.dart';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SpellScreen extends StatefulWidget {
-  const SpellScreen({super.key});
+class SpellScreen extends ConsumerWidget {
+  SpellScreen({super.key});
 
-  @override
-  State<SpellScreen> createState() => _SpellScreenState();
-}
-
-class _SpellScreenState extends State<SpellScreen> {
   final _spellKey = GlobalKey<FormState>();
-  int selectedSpell = 0;
-  SpellType selectedType = SpellType.Fire;
-
-  void _onSpellChanged(int newSpell, SpellType newType) {
-    setState(() {
-      selectedSpell = newSpell;
-      selectedType = newType;
-    });
-  }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final spellState = ref.watch(spellEditorProvider);
+    final spellNotifier = ref.read(spellEditorProvider.notifier);
+
+    final selectedSpell = spellState.selectedSpell;
+    final selectedType = spellState.selectedType;
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Stack(
@@ -36,6 +30,7 @@ class _SpellScreenState extends State<SpellScreen> {
             "lib/assets/backgrounds/tavern_background.jpg",
             fit: BoxFit.fill,
           ),
+
           SafeArea(
             bottom: false,
             top: false,
@@ -54,39 +49,39 @@ class _SpellScreenState extends State<SpellScreen> {
                           spells[selectedSpell].name,
                           style: Theme.of(context).textTheme.headlineLarge,
                         ),
-                        BSBackButton(),
+                        const BSBackButton(),
                       ],
                     ),
+
                     const SizedBox(height: 10),
+
                     BSSpellStat(
                       selectedSpell: selectedSpell,
                       statName: "Damage Modifier",
                       stat: spells[selectedSpell].dmg.toString(),
+                      onSavedValue: spellNotifier.updateDamage,
                     ),
+
                     BSSpellStat(
                       selectedSpell: selectedSpell,
                       statName: "Cooldown",
                       stat: spells[selectedSpell].cd.toString(),
+                      onSavedValue: spellNotifier.updateCooldown,
                     ),
+
                     BSSpellStat(
                       selectedSpell: selectedSpell,
                       statName: "Delay",
                       stat: spells[selectedSpell].delay.toString(),
+                      onSavedValue: spellNotifier.updateDelay,
                     ),
+
                     BSSpellElement(
                       selectedType: selectedType,
-                      onTypeChanged: (newType) {
-                        setState(() {
-                          selectedType = newType;
-                        });
-                      },
+                      onTypeChanged: spellNotifier.setType,
                     ),
-                    BSSpellSave(
-                      spellKey: _spellKey,
-                      selectedSpell: selectedSpell,
-                      selectedType: selectedType,
-                      onSpellChanged: _onSpellChanged,
-                    ),
+
+                    BSSpellSave(spellKey: _spellKey),
                   ],
                 ),
               ),

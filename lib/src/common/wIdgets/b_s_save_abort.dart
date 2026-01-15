@@ -32,6 +32,7 @@ class BSSaveAbort extends StatelessWidget {
                     : const CharacterSelect();
               },
             );
+
             if (selectedIndex != null) {
               onCharacterChange(selectedIndex);
             }
@@ -54,11 +55,15 @@ class BSSaveAbort extends StatelessWidget {
         const SizedBox(width: 10),
         ElevatedButton(
           onPressed: () {
-            if (formState.validate()) {
+            final valid = formState.validate();
+            if (valid) {
               formState.save();
-              ScaffoldMessenger.of(
-                context,
-              ).showSnackBar(SnackBar(content: Text('Saved')));
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(
+                  content: Text('Saved'),
+                  duration: Duration(milliseconds: 50),
+                ),
+              );
             }
           },
           child: Text(

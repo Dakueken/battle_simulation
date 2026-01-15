@@ -1,21 +1,19 @@
 import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
+import 'package:battle_simulation/src/common/providers/monster_editor_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MonsterSelect extends StatefulWidget {
+class MonsterSelect extends ConsumerWidget {
   const MonsterSelect({super.key});
 
   @override
-  State<MonsterSelect> createState() => _MonsterSelectState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final monsterState = ref.watch(monsterEditorProvider);
+    final monsterNotifier = ref.read(monsterEditorProvider.notifier);
 
-class _MonsterSelectState extends State<MonsterSelect> {
-  List<bool> checkboxValues = List.generate(monsters.length, (x) => false);
-
-  @override
-  Widget build(BuildContext context) {
     return Container(
       height: 150,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: Color.fromARGB(152, 0, 0, 0),
         borderRadius: BorderRadius.all(Radius.zero),
       ),
@@ -32,9 +30,7 @@ class _MonsterSelectState extends State<MonsterSelect> {
                   width: 150,
                   height: 40,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
+                    onPressed: () => Navigator.of(context).pop(),
                     child: Text(
                       "back",
                       style: Theme.of(context).textTheme.headlineSmall,
@@ -44,23 +40,27 @@ class _MonsterSelectState extends State<MonsterSelect> {
               ],
             ),
           ),
-          SizedBox(height: 5),
+
+          const SizedBox(height: 5),
+
           Expanded(
             child: ListView.separated(
-              separatorBuilder: (context, index) => SizedBox(width: 5),
+              separatorBuilder: (_, __) => const SizedBox(width: 5),
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
               itemCount: monsters.length,
               itemBuilder: (context, index) {
+                final isInParty = monsterState.inParty[index];
+
                 return ConstrainedBox(
-                  constraints: BoxConstraints(minWidth: 120),
+                  constraints: const BoxConstraints(minWidth: 120),
                   child: Container(
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
-                      color: Color.fromARGB(180, 47, 0, 117),
+                      color: const Color.fromARGB(180, 47, 0, 117),
                       border: Border.all(
                         width: 5,
-                        color: Color.fromARGB(180, 255, 193, 7),
+                        color: const Color.fromARGB(180, 255, 193, 7),
                       ),
                     ),
 
@@ -79,19 +79,19 @@ class _MonsterSelectState extends State<MonsterSelect> {
                                       ?.copyWith(fontSize: 10),
                                 ),
                                 Checkbox(
-                                  value: checkboxValues[index],
-                                  onChanged: (bool? value) {
-                                    setState(() {
-                                      checkboxValues[index] = value!;
-                                    });
+                                  value: isInParty,
+                                  onChanged: (_) {
+                                    monsterNotifier.toggleMonsterInParty(
+                                      index,
+                                      context,
+                                    );
                                   },
                                 ),
                               ],
                             ),
+
                             GestureDetector(
-                              onTap: () {
-                                Navigator.of(context).pop(index);
-                              },
+                              onTap: () => Navigator.of(context).pop(index),
                               child: SizedBox(
                                 height: 64,
                                 child: Image.asset(
