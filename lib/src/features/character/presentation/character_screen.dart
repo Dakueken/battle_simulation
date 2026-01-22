@@ -29,7 +29,7 @@ class CharacterScreen extends ConsumerWidget {
             bottom: false,
             top: false,
             child: Padding(
-              padding: const EdgeInsets.all(10),
+              padding: const EdgeInsets.fromLTRB(10, 15, 10, 0),
               child: Form(
                 key: ValueKey('form_$selectedChar'),
                 child: Column(
@@ -49,6 +49,8 @@ class CharacterScreen extends ConsumerWidget {
 
                     const SizedBox(height: 5),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         BSStatsColumn(selectedChar: selectedChar, isChar: true),
                         const BSSpellList(),

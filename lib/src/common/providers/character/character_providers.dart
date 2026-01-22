@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:battle_simulation/src/common/models/character.dart';
 import 'package:battle_simulation/src/common/providers/data_providers.dart';
+import 'package:battle_simulation/src/common/providers/hive_repository_provider.dart';
 
 final charactersProvider =
     NotifierProvider<CharactersNotifier, List<Character>>(
@@ -16,10 +17,24 @@ class CharactersNotifier extends Notifier<List<Character>> {
     ];
   }
 
+  Future<void> loadFromHive() async {
+    final repository = ref.read(hiveRepositoryProvider);
+    try {
+      final savedCharacters = await repository.loadCharacters();
+      if (savedCharacters.isNotEmpty) {
+        state = savedCharacters;
+        return;
+      }
+    } catch (e) {
+      // If loading fails, keep mock data
+    }
+  }
+
   void updateCharacter(int index, Character updated) {
     state = [
       for (int i = 0; i < state.length; i++) i == index ? updated : state[i],
     ];
+    _saveToHive();
   }
 
   void setHP(int index, int hp) {
@@ -40,5 +55,11 @@ class CharactersNotifier extends Notifier<List<Character>> {
       for (final c in state)
         c.copyWith(currentHP: c.maxHP, haste: 1.0, speed: c.speed),
     ];
+    _saveToHive();
+  }
+
+  Future<void> _saveToHive() async {
+    final repository = ref.read(hiveRepositoryProvider);
+    await repository.saveCharacters(state);
   }
 }

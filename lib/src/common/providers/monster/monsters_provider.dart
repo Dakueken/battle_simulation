@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:battle_simulation/src/common/models/monster.dart';
 import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
+import 'package:battle_simulation/src/common/providers/hive_repository_provider.dart';
 
 final monstersProvider = NotifierProvider<MonstersNotifier, List<Monster>>(
   MonstersNotifier.new,
@@ -9,16 +10,29 @@ final monstersProvider = NotifierProvider<MonstersNotifier, List<Monster>>(
 class MonstersNotifier extends Notifier<List<Monster>> {
   @override
   List<Monster> build() {
-    // Genau wie bei Characters: initiale Kopie der Mockdaten
     return [
       for (final m in monsters) m.copyWith(), // defensive copy
     ];
+  }
+
+  Future<void> loadFromHive() async {
+    final repository = ref.read(hiveRepositoryProvider);
+    try {
+      final savedMonsters = await repository.loadMonsters();
+      if (savedMonsters.isNotEmpty) {
+        state = savedMonsters;
+        return;
+      }
+    } catch (e) {
+      // If loading fails, keep mock data
+    }
   }
 
   void updateMonster(int index, Monster updated) {
     state = [
       for (int i = 0; i < state.length; i++) i == index ? updated : state[i],
     ];
+    _saveToHive();
   }
 
   void setHP(int index, int hp) {
@@ -64,9 +78,14 @@ class MonstersNotifier extends Notifier<List<Monster>> {
   }
 
   void resetAll() {
-    // Genau wie bei Characters: Werte zurücksetzen, aber NICHT Mockdaten neu laden
     state = [
       for (final m in state) m.copyWith(currentHP: m.maxHP, speed: m.speed),
     ];
+    _saveToHive();
+  }
+
+  Future<void> _saveToHive() async {
+    final repository = ref.read(hiveRepositoryProvider);
+    await repository.saveMonsters(state);
   }
 }

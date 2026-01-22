@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:battle_simulation/src/common/data/mock_data/spells.dart';
 import 'package:battle_simulation/src/common/models/spell.dart';
+import 'package:battle_simulation/src/common/providers/spells/spells_provider.dart';
 
 class SpellEditorState {
   final int selectedSpell;
@@ -34,15 +34,17 @@ class SpellEditorNotifier extends Notifier<SpellEditorState> {
   }
 
   void updateDamage(double value) {
-    spells[state.selectedSpell].dmg = value;
+    ref.read(spellsProvider.notifier).updateDamage(state.selectedSpell, value);
   }
 
   void updateCooldown(double value) {
-    spells[state.selectedSpell].cd = value;
+    ref
+        .read(spellsProvider.notifier)
+        .updateCooldown(state.selectedSpell, value);
   }
 
   void updateDelay(double value) {
-    spells[state.selectedSpell].delay = value;
+    ref.read(spellsProvider.notifier).updateDelay(state.selectedSpell, value);
   }
 }
 
