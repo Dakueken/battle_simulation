@@ -1,4 +1,3 @@
-import 'package:battle_simulation/src/common/providers/monster/monster_editor_provider.dart';
 import 'package:battle_simulation/src/common/providers/monster/monsters_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -8,9 +7,8 @@ class MonsterSelect extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final monsterState = ref.watch(monsterEditorProvider);
-    final monsterNotifier = ref.read(monsterEditorProvider.notifier);
     final monsters = ref.watch(monstersProvider);
+    final monstersNotifier = ref.read(monstersProvider.notifier);
 
     return Container(
       height: 150,
@@ -51,7 +49,7 @@ class MonsterSelect extends ConsumerWidget {
               shrinkWrap: true,
               itemCount: monsters.length,
               itemBuilder: (context, index) {
-                final isInParty = monsterState.inParty[index];
+                final isInParty = monsters[index].inBattle;
 
                 return ConstrainedBox(
                   constraints: const BoxConstraints(minWidth: 120),
@@ -73,7 +71,7 @@ class MonsterSelect extends ConsumerWidget {
                             Column(
                               children: [
                                 Text(
-                                  "in Party",
+                                  "Fighting",
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineSmall
@@ -82,9 +80,10 @@ class MonsterSelect extends ConsumerWidget {
                                 Checkbox(
                                   value: isInParty,
                                   onChanged: (_) {
-                                    monsterNotifier.toggleMonsterInParty(
+                                    final newValue = !isInParty;
+                                    monstersNotifier.setInBattle(
                                       index,
-                                      context,
+                                      newValue,
                                     );
                                   },
                                 ),

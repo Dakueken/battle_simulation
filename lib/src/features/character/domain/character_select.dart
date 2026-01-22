@@ -1,6 +1,4 @@
-import 'package:battle_simulation/src/common/providers/character/character_editor_provider.dart';
 import 'package:battle_simulation/src/common/providers/character/character_providers.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -9,9 +7,8 @@ class CharacterSelect extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final characterState = ref.watch(characterEditorProvider);
-    final characterNotifier = ref.read(characterEditorProvider.notifier);
     final characters = ref.watch(charactersProvider);
+    final charactersNotifier = ref.read(charactersProvider.notifier);
 
     return Container(
       height: 150,
@@ -19,7 +16,6 @@ class CharacterSelect extends ConsumerWidget {
         color: Color.fromARGB(152, 0, 0, 0),
         borderRadius: BorderRadius.all(Radius.zero),
       ),
-
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -42,9 +38,7 @@ class CharacterSelect extends ConsumerWidget {
               ],
             ),
           ),
-
           const SizedBox(height: 5),
-
           Expanded(
             child: ListView.separated(
               separatorBuilder: (_, __) => const SizedBox(width: 5),
@@ -52,7 +46,7 @@ class CharacterSelect extends ConsumerWidget {
               shrinkWrap: true,
               itemCount: characters.length,
               itemBuilder: (context, index) {
-                final isInParty = characterState.inParty[index];
+                final isInParty = characters[index].inBattle;
 
                 return ConstrainedBox(
                   constraints: const BoxConstraints(minWidth: 120),
@@ -65,7 +59,6 @@ class CharacterSelect extends ConsumerWidget {
                         color: const Color.fromARGB(180, 255, 193, 7),
                       ),
                     ),
-
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -74,7 +67,7 @@ class CharacterSelect extends ConsumerWidget {
                             Column(
                               children: [
                                 Text(
-                                  "in Party",
+                                  "Fighting",
                                   style: Theme.of(context)
                                       .textTheme
                                       .headlineSmall
@@ -83,15 +76,15 @@ class CharacterSelect extends ConsumerWidget {
                                 Checkbox(
                                   value: isInParty,
                                   onChanged: (_) {
-                                    characterNotifier.toggleCharacterInParty(
+                                    final newValue = !isInParty;
+                                    charactersNotifier.setInBattle(
                                       index,
-                                      context,
+                                      newValue,
                                     );
                                   },
                                 ),
                               ],
                             ),
-
                             GestureDetector(
                               onTap: () => Navigator.of(context).pop(index),
                               child: SizedBox(
@@ -104,7 +97,6 @@ class CharacterSelect extends ConsumerWidget {
                             ),
                           ],
                         ),
-
                         Text(
                           characters[index].name,
                           style: Theme.of(context).textTheme.headlineMedium,

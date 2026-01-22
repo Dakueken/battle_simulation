@@ -21,7 +21,7 @@ List<Monster> monsters = [
     mp: 7,
     speed: 80,
     image: "lib/assets/monster/green/idle/frame-1.png",
-    inBattle: true,
+    inBattle: false,
   ),
   Monster(
     name: "Monster C",

@@ -8,14 +8,15 @@ class BSBattleMonster extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final monsters = ref.watch(monstersProvider);
+    final fightingMonsters = monsters.where((m) => m.inBattle).toList();
 
-    if (monsters.isEmpty) {
+    if (fightingMonsters.isEmpty) {
       return const SizedBox.shrink();
     }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: monsters.map((monster) {
+      children: fightingMonsters.map((monster) {
         final hpPercent = monster.currentHP / monster.maxHP;
 
         return SizedBox(

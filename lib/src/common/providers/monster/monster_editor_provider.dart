@@ -38,9 +38,26 @@ class MonsterEditorNotifier extends Notifier<MonsterEditorState> {
     }
     final count = current.where((e) => e).length;
 
+    // If trying to add and already at 3
     if (!current[index] && count >= 3) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Maximal 3 Monster in der Party erlaubt")),
+        const SnackBar(
+          content: Text(
+            "Max 3 monsters can fight in battle. Uncheck one first.",
+          ),
+        ),
+      );
+      return;
+    }
+
+    // If trying to remove and only 1 selected
+    if (current[index] && count <= 1) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "At least 1 monster must fight in battle. Select another first.",
+          ),
+        ),
       );
       return;
     }

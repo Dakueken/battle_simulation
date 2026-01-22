@@ -41,9 +41,26 @@ class CharacterEditorNotifier extends Notifier<CharacterEditorState> {
     }
     final count = current.where((e) => e).length;
 
+    // If trying to add and already at 4
     if (!current[index] && count >= 4) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Maximal 4 Charaktere in der Party erlaubt")),
+        const SnackBar(
+          content: Text(
+            "Exactly 4 characters must fight in battle. Uncheck another character first.",
+          ),
+        ),
+      );
+      return;
+    }
+
+    // If trying to remove and only 4 selected
+    if (current[index] && count <= 4) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text(
+            "Exactly 4 characters must fight in battle. Select another character first.",
+          ),
+        ),
       );
       return;
     }
