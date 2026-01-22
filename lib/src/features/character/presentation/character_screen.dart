@@ -1,9 +1,9 @@
 import 'package:battle_simulation/src/common/providers/character/character_editor_provider.dart';
+import 'package:battle_simulation/src/common/providers/character/character_providers.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_back_button.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_save_abort.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_spell_list.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_stats_column.dart';
-import 'package:battle_simulation/src/common/data/mock_data/characters.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,6 +15,7 @@ class CharacterScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final characterState = ref.watch(characterEditorProvider);
     final characterNotifier = ref.read(characterEditorProvider.notifier);
+    final characters = ref.watch(charactersProvider);
 
     final selectedCharacter = characterState.selectedCharacter;
 
@@ -42,9 +43,26 @@ class CharacterScreen extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          characters[selectedCharacter].name,
-                          style: Theme.of(context).textTheme.headlineLarge,
+                        Expanded(
+                          child: TextFormField(
+                            initialValue: characters[selectedCharacter].name,
+                            style: Theme.of(context).textTheme.headlineLarge,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              isDense: true,
+                            ),
+                            onSaved: (value) {
+                              if (value != null && value.isNotEmpty) {
+                                final char = characters[selectedCharacter];
+                                ref
+                                    .read(charactersProvider.notifier)
+                                    .updateCharacter(
+                                      selectedCharacter,
+                                      char.copyWith(name: value),
+                                    );
+                              }
+                            },
+                          ),
                         ),
                         const BSBackButton(),
                       ],

@@ -1,4 +1,4 @@
-import 'package:battle_simulation/src/common/data/mock_data/spells.dart';
+import 'package:battle_simulation/src/common/providers/spells/spells_provider.dart';
 import 'package:battle_simulation/src/common/providers/spells/spell_editor_provider.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_back_button.dart';
 import 'package:battle_simulation/src/features/spells/presentation/widgets/b_s_spell_element.dart';
@@ -17,6 +17,7 @@ class SpellScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final spellState = ref.watch(spellEditorProvider);
     final spellNotifier = ref.read(spellEditorProvider.notifier);
+    final spells = ref.watch(spellsProvider);
 
     final selectedSpell = spellState.selectedSpell;
     final selectedType = spellState.selectedType;
@@ -45,9 +46,24 @@ class SpellScreen extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          spells[selectedSpell].name,
-                          style: Theme.of(context).textTheme.headlineLarge,
+                        Expanded(
+                          child: TextFormField(
+                            initialValue: spells[selectedSpell].name,
+                            style: Theme.of(context).textTheme.headlineLarge,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              isDense: true,
+                            ),
+                            onSaved: (value) {
+                              if (value != null && value.isNotEmpty) {
+                                final spell = spells[selectedSpell];
+                                spell.name = value;
+                                ref
+                                    .read(spellsProvider.notifier)
+                                    .updateSpell(selectedSpell, spell);
+                              }
+                            },
+                          ),
                         ),
                         const BSBackButton(),
                       ],

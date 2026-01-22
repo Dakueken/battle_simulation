@@ -1,9 +1,9 @@
 import 'package:battle_simulation/src/common/providers/monster/monster_editor_provider.dart';
+import 'package:battle_simulation/src/common/providers/monster/monsters_provider.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_back_button.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_save_abort.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_spell_list.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_stats_column.dart';
-import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -15,6 +15,7 @@ class MonsterScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final monsterState = ref.watch(monsterEditorProvider);
     final monsterNotifier = ref.read(monsterEditorProvider.notifier);
+    final monsters = ref.watch(monstersProvider);
 
     final selectedMonster = monsterState.selectedMonster;
 
@@ -42,9 +43,26 @@ class MonsterScreen extends ConsumerWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          monsters[selectedMonster].name,
-                          style: Theme.of(context).textTheme.headlineLarge,
+                        Expanded(
+                          child: TextFormField(
+                            initialValue: monsters[selectedMonster].name,
+                            style: Theme.of(context).textTheme.headlineLarge,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              isDense: true,
+                            ),
+                            onSaved: (value) {
+                              if (value != null && value.isNotEmpty) {
+                                final mon = monsters[selectedMonster];
+                                ref
+                                    .read(monstersProvider.notifier)
+                                    .updateMonster(
+                                      selectedMonster,
+                                      mon.copyWith(name: value),
+                                    );
+                              }
+                            },
+                          ),
                         ),
                         const BSBackButton(),
                       ],
