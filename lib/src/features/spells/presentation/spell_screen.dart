@@ -97,7 +97,29 @@ class SpellScreen extends ConsumerWidget {
                       onTypeChanged: spellNotifier.setType,
                     ),
 
-                    BSSpellSave(spellKey: _spellKey),
+                    BSSpellSave(
+                      spellKey: _spellKey,
+                      onAbortDelete: () {
+                        ref
+                            .read(spellsProvider.notifier)
+                            .deleteSpell(selectedSpell);
+                        if (selectedSpell > 0) {
+                          spellNotifier.selectSpell(selectedSpell - 1);
+                        } else if (ref.read(spellsProvider).isNotEmpty) {
+                          spellNotifier.selectSpell(0);
+                        }
+                      },
+                      onDelete: () {
+                        ref
+                            .read(spellsProvider.notifier)
+                            .deleteSpell(selectedSpell);
+                        if (selectedSpell > 0) {
+                          spellNotifier.selectSpell(selectedSpell - 1);
+                        } else if (ref.read(spellsProvider).isNotEmpty) {
+                          spellNotifier.selectSpell(0);
+                        }
+                      },
+                    ),
                   ],
                 ),
               ),

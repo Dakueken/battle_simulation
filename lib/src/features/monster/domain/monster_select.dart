@@ -1,5 +1,5 @@
-import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
 import 'package:battle_simulation/src/common/providers/monster/monster_editor_provider.dart';
+import 'package:battle_simulation/src/common/providers/monster/monsters_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -10,6 +10,7 @@ class MonsterSelect extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final monsterState = ref.watch(monsterEditorProvider);
     final monsterNotifier = ref.read(monsterEditorProvider.notifier);
+    final monsters = ref.watch(monstersProvider);
 
     return Container(
       height: 150,

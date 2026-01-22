@@ -36,6 +36,26 @@ class SpellsNotifier extends Notifier<List<Spell>> {
     _saveToHive();
   }
 
+  void addSpell() {
+    final newSpell = Spell(
+      name: 'New Spell',
+      dmg: 0,
+      cd: 1,
+      delay: 1,
+      element: 'Fire',
+    );
+    state = [...state, newSpell];
+  }
+
+  void deleteSpell(int index) {
+    if (index < 0 || index >= state.length) return;
+    state = [
+      for (int i = 0; i < state.length; i++)
+        if (i != index) state[i],
+    ];
+    _saveToHive();
+  }
+
   void updateDamage(int index, double dmg) {
     if (index < 0 || index >= state.length) return;
     final spell = state[index];

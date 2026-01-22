@@ -1,4 +1,4 @@
-import 'package:battle_simulation/src/common/data/mock_data/spells.dart';
+import 'package:battle_simulation/src/common/providers/spells/spells_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -7,6 +7,7 @@ class SpellSelect extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final spells = ref.watch(spellsProvider);
     return Container(
       height: 150,
       decoration: const BoxDecoration(

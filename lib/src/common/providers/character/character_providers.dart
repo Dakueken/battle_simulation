@@ -37,6 +37,32 @@ class CharactersNotifier extends Notifier<List<Character>> {
     _saveToHive();
   }
 
+  void addCharacter() {
+    final newCharacter = Character(
+      name: 'New Character',
+      maxHP: 1000,
+      currentHP: 1000,
+      armor: 0,
+      mp: 0,
+      luck: 0,
+      speed: 100,
+      image: 'lib/assets/characters/character_a.png',
+      inBattle: false,
+      haste: 1.0,
+      characterSpells: [],
+    );
+    state = [...state, newCharacter];
+  }
+
+  void deleteCharacter(int index) {
+    if (index < 0 || index >= state.length) return;
+    state = [
+      for (int i = 0; i < state.length; i++)
+        if (i != index) state[i],
+    ];
+    _saveToHive();
+  }
+
   void setHP(int index, int hp) {
     if (index < 0 || index >= state.length) return;
     final char = state[index];

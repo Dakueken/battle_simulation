@@ -1,5 +1,5 @@
-import 'package:battle_simulation/src/common/data/mock_data/characters.dart';
 import 'package:battle_simulation/src/common/providers/character/character_editor_provider.dart';
+import 'package:battle_simulation/src/common/providers/character/character_providers.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -11,6 +11,7 @@ class CharacterSelect extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final characterState = ref.watch(characterEditorProvider);
     final characterNotifier = ref.read(characterEditorProvider.notifier);
+    final characters = ref.watch(charactersProvider);
 
     return Container(
       height: 150,

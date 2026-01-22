@@ -88,6 +88,33 @@ class MonsterScreen extends ConsumerWidget {
                       onCharacterChange: (index) {
                         monsterNotifier.selectMonster(index);
                       },
+                      onAddNew: () {
+                        ref.read(monstersProvider.notifier).addMonster();
+                        Future.microtask(() {
+                          final mons = ref.read(monstersProvider);
+                          monsterNotifier.selectMonster(mons.length - 1);
+                        });
+                      },
+                      onAbortDelete: () {
+                        ref
+                            .read(monstersProvider.notifier)
+                            .deleteMonster(selectedMonster);
+                        if (selectedMonster > 0) {
+                          monsterNotifier.selectMonster(selectedMonster - 1);
+                        } else if (ref.read(monstersProvider).isNotEmpty) {
+                          monsterNotifier.selectMonster(0);
+                        }
+                      },
+                      onDelete: () {
+                        ref
+                            .read(monstersProvider.notifier)
+                            .deleteMonster(selectedMonster);
+                        if (selectedMonster > 0) {
+                          monsterNotifier.selectMonster(selectedMonster - 1);
+                        } else if (ref.read(monstersProvider).isNotEmpty) {
+                          monsterNotifier.selectMonster(0);
+                        }
+                      },
                     ),
                   ],
                 ),

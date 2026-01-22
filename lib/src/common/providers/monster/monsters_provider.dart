@@ -35,6 +35,31 @@ class MonstersNotifier extends Notifier<List<Monster>> {
     _saveToHive();
   }
 
+  void addMonster() {
+    final newMonster = Monster(
+      name: 'New Monster',
+      maxHP: 500,
+      currentHP: 500,
+      armor: 0,
+      mp: 0,
+      luck: 0,
+      speed: 50,
+      image: 'lib/assets/monster/monster_a.png',
+      inBattle: false,
+      haste: 1.0,
+    );
+    state = [...state, newMonster];
+  }
+
+  void deleteMonster(int index) {
+    if (index < 0 || index >= state.length) return;
+    state = [
+      for (int i = 0; i < state.length; i++)
+        if (i != index) state[i],
+    ];
+    _saveToHive();
+  }
+
   void setHP(int index, int hp) {
     if (index < 0 || index >= state.length) return;
     final mon = state[index];

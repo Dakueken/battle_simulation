@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:battle_simulation/src/common/data/mock_data/monsters.dart';
+import 'package:battle_simulation/src/common/providers/monster/monsters_provider.dart';
 
 class MonsterEditorState {
   final int selectedMonster;
@@ -19,6 +19,7 @@ class MonsterEditorState {
 class MonsterEditorNotifier extends Notifier<MonsterEditorState> {
   @override
   MonsterEditorState build() {
+    final monsters = ref.watch(monstersProvider);
     return MonsterEditorState(
       selectedMonster: 0,
       inParty: List.generate(monsters.length, (_) => false),
@@ -31,6 +32,10 @@ class MonsterEditorNotifier extends Notifier<MonsterEditorState> {
 
   void toggleMonsterInParty(int index, BuildContext context) {
     final current = List<bool>.from(state.inParty);
+    // Expand the list if necessary
+    while (current.length <= index) {
+      current.add(false);
+    }
     final count = current.where((e) => e).length;
 
     if (!current[index] && count >= 3) {

@@ -88,6 +88,37 @@ class CharacterScreen extends ConsumerWidget {
                       onCharacterChange: (index) {
                         characterNotifier.selectCharacter(index);
                       },
+                      onAddNew: () {
+                        ref.read(charactersProvider.notifier).addCharacter();
+                        Future.microtask(() {
+                          final chars = ref.read(charactersProvider);
+                          characterNotifier.selectCharacter(chars.length - 1);
+                        });
+                      },
+                      onAbortDelete: () {
+                        ref
+                            .read(charactersProvider.notifier)
+                            .deleteCharacter(selectedCharacter);
+                        if (selectedCharacter > 0) {
+                          characterNotifier.selectCharacter(
+                            selectedCharacter - 1,
+                          );
+                        } else if (ref.read(charactersProvider).isNotEmpty) {
+                          characterNotifier.selectCharacter(0);
+                        }
+                      },
+                      onDelete: () {
+                        ref
+                            .read(charactersProvider.notifier)
+                            .deleteCharacter(selectedCharacter);
+                        if (selectedCharacter > 0) {
+                          characterNotifier.selectCharacter(
+                            selectedCharacter - 1,
+                          );
+                        } else if (ref.read(charactersProvider).isNotEmpty) {
+                          characterNotifier.selectCharacter(0);
+                        }
+                      },
                     ),
                   ],
                 ),
