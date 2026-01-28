@@ -33,17 +33,6 @@ class SpellSelect extends ConsumerWidget {
                     ),
                   ),
                 ),
-                SizedBox(
-                  width: 200,
-                  height: 40,
-                  child: ElevatedButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    child: Text(
-                      "create new Spell",
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  ),
-                ),
               ],
             ),
           ),

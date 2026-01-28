@@ -8,6 +8,7 @@ class BSBattleCharacter extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final characters = ref.watch(charactersProvider);
+    final fightingCharacters = characters.where((c) => c.inBattle).toList();
 
     return Align(
       alignment: Alignment.centerRight,
@@ -18,7 +19,7 @@ class BSBattleCharacter extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           spacing: 10,
-          children: characters.map((character) {
+          children: fightingCharacters.map((character) {
             final hpText = "${character.currentHP}/${character.maxHP}";
 
             return Container(

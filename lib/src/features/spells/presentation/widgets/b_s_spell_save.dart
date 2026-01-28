@@ -58,7 +58,7 @@ class BSSpellSave extends ConsumerWidget {
               }
             },
             child: Text(
-              "Select Spell",
+              "Select",
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
@@ -71,7 +71,7 @@ class BSSpellSave extends ConsumerWidget {
               onAbortDelete?.call();
             },
             child: Text(
-              "Abort Changes",
+              "Abort",
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),
@@ -92,7 +92,7 @@ class BSSpellSave extends ConsumerWidget {
               }
             },
             child: Text(
-              "Save Changes",
+              "Save",
               style: Theme.of(context).textTheme.headlineMedium,
             ),
           ),

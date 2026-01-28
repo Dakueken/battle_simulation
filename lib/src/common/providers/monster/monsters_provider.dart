@@ -44,7 +44,7 @@ class MonstersNotifier extends Notifier<List<Monster>> {
       mp: 0,
       luck: 0,
       speed: 50,
-      image: 'lib/assets/monster/monster_a.png',
+      image: 'lib/assets/monster/blue/idle/frame-1.png',
       inBattle: false,
       haste: 1.0,
     );

@@ -1,4 +1,5 @@
 import 'package:battle_simulation/src/common/providers/monster/monsters_provider.dart';
+import 'package:battle_simulation/src/common/widgets/b_s_battle_checkbox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -77,13 +78,17 @@ class MonsterSelect extends ConsumerWidget {
                                       .headlineSmall
                                       ?.copyWith(fontSize: 10),
                                 ),
-                                Checkbox(
+                                BSBattleCheckbox(
                                   value: isInParty,
-                                  onChanged: (_) {
-                                    final newValue = !isInParty;
+                                  selectedCount: monsters
+                                      .where((m) => m.inBattle)
+                                      .length,
+                                  maxSelected: 3,
+                                  type: 'Monster',
+                                  onChanged: () {
                                     monstersNotifier.setInBattle(
                                       index,
-                                      newValue,
+                                      !isInParty,
                                     );
                                   },
                                 ),

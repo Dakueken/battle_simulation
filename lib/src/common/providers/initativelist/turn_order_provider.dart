@@ -1,9 +1,5 @@
 import 'package:riverpod/riverpod.dart';
 
-import 'package:battle_simulation/src/common/providers/character/character_providers.dart';
-import 'package:battle_simulation/src/common/providers/monster/monsters_provider.dart';
-import 'package:battle_simulation/src/common/providers/data_providers.dart';
-
 import 'package:battle_simulation/src/common/models/character.dart';
 import 'package:battle_simulation/src/common/models/monster.dart';
 import 'package:battle_simulation/src/common/models/spell.dart';
@@ -15,11 +11,7 @@ final turnOrderProvider = NotifierProvider<TurnOrderNotifier, List<dynamic>>(
 class TurnOrderNotifier extends Notifier<List<dynamic>> {
   @override
   List<dynamic> build() {
-    final characters = ref.read(charactersProvider);
-    final monsters = ref.read(monstersProvider);
-    final spells = ref.read(spellsProvider);
-
-    return getTurnOrder(characters, monsters, spells, turnsToSimulate: 30);
+    return [];
   }
 
   void consumeTurn() {

@@ -11,7 +11,7 @@ List<Character> characters = [
     mp: 3,
     speed: 200,
     image: "lib/assets/characters/character_a.png",
-    inBattle: true,
+    inBattle: false,
     haste: 1,
     characterSpells: [
       Spell(name: "one", dmg: 1, cd: 1, delay: 1, element: SpellType.Fire.name),
@@ -26,7 +26,7 @@ List<Character> characters = [
     mp: 7,
     speed: 70,
     image: "lib/assets/characters/character_b.png",
-    inBattle: true,
+    inBattle: false,
     haste: 1,
     characterSpells: [
       Spell(name: "two", dmg: 1, cd: 1, delay: 1, element: SpellType.Fire.name),
@@ -41,7 +41,7 @@ List<Character> characters = [
     mp: 2,
     speed: 50,
     image: "lib/assets/characters/character_c.png",
-    inBattle: true,
+    inBattle: false,
     haste: 1,
     characterSpells: [
       Spell(
@@ -62,7 +62,7 @@ List<Character> characters = [
     mp: 6,
     speed: 90,
     image: "lib/assets/characters/character_d.png",
-    inBattle: true,
+    inBattle: false,
     haste: 1,
     characterSpells: [
       Spell(

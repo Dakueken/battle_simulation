@@ -1,4 +1,5 @@
 import 'package:battle_simulation/src/common/providers/character/character_providers.dart';
+import 'package:battle_simulation/src/common/widgets/b_s_battle_checkbox.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -73,13 +74,17 @@ class CharacterSelect extends ConsumerWidget {
                                       .headlineSmall
                                       ?.copyWith(fontSize: 10),
                                 ),
-                                Checkbox(
+                                BSBattleCheckbox(
                                   value: isInParty,
-                                  onChanged: (_) {
-                                    final newValue = !isInParty;
+                                  selectedCount: characters
+                                      .where((c) => c.inBattle)
+                                      .length,
+                                  maxSelected: 4,
+                                  type: 'Character',
+                                  onChanged: () {
                                     charactersNotifier.setInBattle(
                                       index,
-                                      newValue,
+                                      !isInParty,
                                     );
                                   },
                                 ),
