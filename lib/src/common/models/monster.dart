@@ -1,3 +1,5 @@
+import 'package:battle_simulation/src/common/models/spell.dart';
+
 class Monster {
   int maxHP;
   int currentHP;
@@ -11,6 +13,7 @@ class Monster {
 
   double haste;
   bool inBattle;
+  final List<Spell> monsterSpells;
 
   Monster({
     required this.name,
@@ -23,6 +26,7 @@ class Monster {
     required this.image,
     required this.inBattle,
     this.haste = 1.0,
+    required this.monsterSpells,
   });
 
   Monster copyWith({
@@ -36,6 +40,7 @@ class Monster {
     String? image,
     double? haste,
     bool? inBattle,
+    List<Spell>? monsterSpells,
   }) {
     return Monster(
       name: name ?? this.name,
@@ -48,6 +53,7 @@ class Monster {
       image: image ?? this.image,
       inBattle: inBattle ?? this.inBattle,
       haste: haste ?? this.haste,
+      monsterSpells: monsterSpells ?? List.of(this.monsterSpells),
     );
   }
 }

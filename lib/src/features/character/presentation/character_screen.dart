@@ -88,7 +88,33 @@ class CharacterScreen extends ConsumerWidget {
                       onCharacterChange: (index) {
                         characterNotifier.selectCharacter(index);
                       },
+                      onValidateSave: () {
+                        if (characters[selectedCharacter]
+                            .characterSpells
+                            .isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Please select at least 1 spell before saving',
+                              ),
+                            ),
+                          );
+                          return false;
+                        }
+                        return true;
+                      },
                       onAddNew: () {
+                        final currentChar = characters[selectedCharacter];
+                        if (currentChar.characterSpells.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Please select at least 1 spell before adding a new character',
+                              ),
+                            ),
+                          );
+                          return;
+                        }
                         ref.read(charactersProvider.notifier).addCharacter();
                         Future.microtask(() {
                           final chars = ref.read(charactersProvider);

@@ -17,16 +17,25 @@ class MonsterEditorState {
 }
 
 class MonsterEditorNotifier extends Notifier<MonsterEditorState> {
+  int _preservedSelection = 0;
+
   @override
   MonsterEditorState build() {
     final monsters = ref.watch(monstersProvider);
+
+    // When monster list changes, validate the preserved selection
+    if (_preservedSelection >= monsters.length && monsters.isNotEmpty) {
+      _preservedSelection = monsters.length - 1;
+    }
+
     return MonsterEditorState(
-      selectedMonster: 0,
+      selectedMonster: _preservedSelection,
       inParty: List.generate(monsters.length, (_) => false),
     );
   }
 
   void selectMonster(int index) {
+    _preservedSelection = index;
     state = state.copyWith(selectedMonster: index);
   }
 

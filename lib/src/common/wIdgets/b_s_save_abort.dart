@@ -9,6 +9,7 @@ class BSSaveAbort extends StatelessWidget {
   final VoidCallback? onAddNew;
   final VoidCallback? onAbortDelete;
   final VoidCallback? onDelete;
+  final bool Function()? onValidateSave;
 
   const BSSaveAbort({
     super.key,
@@ -18,6 +19,7 @@ class BSSaveAbort extends StatelessWidget {
     this.onAddNew,
     this.onAbortDelete,
     this.onDelete,
+    this.onValidateSave,
   });
 
   @override
@@ -71,15 +73,20 @@ class BSSaveAbort extends StatelessWidget {
         ElevatedButton(
           onPressed: () {
             final valid = formState.validate();
-            if (valid) {
-              formState.save();
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Saved'),
-                  duration: Duration(milliseconds: 50),
-                ),
-              );
+            if (!valid) return;
+
+            // Call custom validation if provided
+            if (onValidateSave != null && !onValidateSave!()) {
+              return;
             }
+
+            formState.save();
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Saved'),
+                duration: Duration(milliseconds: 50),
+              ),
+            );
           },
           child: Text(
             "Save",
@@ -96,12 +103,12 @@ class BSSaveAbort extends StatelessWidget {
                     SnackBar(
                       content: Row(
                         children: [
-                          const Expanded(
-                            child: Text('Delete this item?'),
-                          ),
+                          const Expanded(child: Text('Delete this item?')),
                           TextButton(
                             onPressed: () {
-                              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                              ScaffoldMessenger.of(
+                                context,
+                              ).hideCurrentSnackBar();
                             },
                             child: const Text(
                               'Abort',
@@ -111,7 +118,9 @@ class BSSaveAbort extends StatelessWidget {
                           const SizedBox(width: 8),
                           TextButton(
                             onPressed: () {
-                              ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                              ScaffoldMessenger.of(
+                                context,
+                              ).hideCurrentSnackBar();
                               onDelete!();
                             },
                             child: const Text(
@@ -125,9 +134,7 @@ class BSSaveAbort extends StatelessWidget {
                     ),
                   );
                 },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.red,
-          ),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.red),
           child: Text(
             "Delete",
             style: Theme.of(context).textTheme.headlineMedium,

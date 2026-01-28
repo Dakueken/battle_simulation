@@ -1,4 +1,5 @@
 import 'package:battle_simulation/src/common/models/monster.dart';
+import 'package:battle_simulation/src/common/models/spell.dart';
 import 'package:hive_ce/hive_ce.dart';
 
 class MonsterAdapter extends TypeAdapter<Monster> {
@@ -22,12 +23,13 @@ class MonsterAdapter extends TypeAdapter<Monster> {
       image: fields[7] as String,
       inBattle: fields[8] as bool,
       haste: fields[9] as double? ?? 1.0,
+      monsterSpells: (fields[10] as List?)?.cast<Spell>() ?? [],
     );
   }
 
   @override
   void write(BinaryWriter writer, Monster obj) {
-    writer.writeByte(10);
+    writer.writeByte(11);
     writer.writeByte(0);
     writer.write(obj.name);
     writer.writeByte(1);
@@ -48,6 +50,8 @@ class MonsterAdapter extends TypeAdapter<Monster> {
     writer.write(obj.inBattle);
     writer.writeByte(9);
     writer.write(obj.haste);
+    writer.writeByte(10);
+    writer.write(obj.monsterSpells);
   }
 
   @override

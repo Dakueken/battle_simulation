@@ -11,7 +11,10 @@ class MonstersNotifier extends Notifier<List<Monster>> {
   @override
   List<Monster> build() {
     return [
-      for (final m in monsters) m.copyWith(), // defensive copy
+      for (final m in monsters)
+        m.copyWith(
+          monsterSpells: List.of(m.monsterSpells),
+        ), // defensive copy with deep spell list copy
     ];
   }
 
@@ -47,6 +50,7 @@ class MonstersNotifier extends Notifier<List<Monster>> {
       image: 'lib/assets/monster/blue/idle/frame-1.png',
       inBattle: false,
       haste: 1.0,
+      monsterSpells: [],
     );
     state = [...state, newMonster];
   }

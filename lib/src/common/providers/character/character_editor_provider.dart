@@ -20,16 +20,25 @@ class CharacterEditorState {
 }
 
 class CharacterEditorNotifier extends Notifier<CharacterEditorState> {
+  int _preservedSelection = 0;
+
   @override
   CharacterEditorState build() {
     final characters = ref.watch(charactersProvider);
+
+    // When character list changes, validate the preserved selection
+    if (_preservedSelection >= characters.length && characters.isNotEmpty) {
+      _preservedSelection = characters.length - 1;
+    }
+
     return CharacterEditorState(
-      selectedCharacter: 0,
+      selectedCharacter: _preservedSelection,
       inParty: List.generate(characters.length, (_) => false),
     );
   }
 
   void selectCharacter(int index) {
+    _preservedSelection = index;
     state = state.copyWith(selectedCharacter: index);
   }
 

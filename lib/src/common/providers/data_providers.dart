@@ -54,6 +54,7 @@ final initialMonsters = mock_monsters.monsters
         image: m.image,
         inBattle: m.inBattle,
         haste: m.haste,
+        monsterSpells: m.monsterSpells,
       ),
     )
     .toList();

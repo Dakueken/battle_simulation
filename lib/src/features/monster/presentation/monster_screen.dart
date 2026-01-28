@@ -2,7 +2,7 @@ import 'package:battle_simulation/src/common/providers/monster/monster_editor_pr
 import 'package:battle_simulation/src/common/providers/monster/monsters_provider.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_back_button.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_save_abort.dart';
-import 'package:battle_simulation/src/common/widgets/b_s_spell_list.dart';
+import 'package:battle_simulation/src/common/widgets/b_s_monster_spell_list.dart';
 import 'package:battle_simulation/src/common/widgets/b_s_stats_column.dart';
 
 import 'package:flutter/material.dart';
@@ -78,7 +78,7 @@ class MonsterScreen extends ConsumerWidget {
                           selectedChar: selectedMonster,
                           isChar: false,
                         ),
-                        const BSSpellList(),
+                        const BSMonsterSpellList(),
                       ],
                     ),
 
@@ -89,11 +89,35 @@ class MonsterScreen extends ConsumerWidget {
                         monsterNotifier.selectMonster(index);
                       },
                       onAddNew: () {
+                        final currentMon = monsters[selectedMonster];
+                        if (currentMon.monsterSpells.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Please select at least 1 spell before adding a new monster',
+                              ),
+                            ),
+                          );
+                          return;
+                        }
                         ref.read(monstersProvider.notifier).addMonster();
                         Future.microtask(() {
                           final mons = ref.read(monstersProvider);
                           monsterNotifier.selectMonster(mons.length - 1);
                         });
+                      },
+                      onValidateSave: () {
+                        if (monsters[selectedMonster].monsterSpells.isEmpty) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              content: Text(
+                                'Please select at least 1 spell before saving',
+                              ),
+                            ),
+                          );
+                          return false;
+                        }
+                        return true;
                       },
                       onAbortDelete: () {
                         ref
